@@ -19,31 +19,31 @@ const TransportList = () => {
   const handleTruck = () => {
     axios
       .get(
-        "https://my-market-place-server.vercel.app/categoryJobs?category=Digital%20Marketing"
+        "http://localhost:8000/api/v1/transports?type=Truck"
       )
       .then((res) => {
-        console.log(res.data);
-        setVehicles(res.data);
+        console.log(res.data.data);
+        setVehicles(res.data.data);
       });
   };
   const handlePickup = () => {
     axios
       .get(
-        "https://my-market-place-server.vercel.app/categoryJobs?category=Graphics%20Design"
+        "http://localhost:8000/api/v1/transports?type=Pickup"
       )
       .then((res) => {
-        console.log(res.data);
-        setVehicles(res.data);
+        console.log(res.data.data);
+        setVehicles(res.data.data);
       });
   };
   const handleMotorcycle = () => {
     axios
       .get(
-        "https://my-market-place-server.vercel.app/categoryJobs?category=Graphics%20Design"
+        "http://localhost:8000/api/v1/transports?type=Motorcycle"
       )
       .then((res) => {
-        console.log(res.data);
-        setVehicles(res.data);
+        console.log(res.data.data);
+        setVehicles(res.data.data);
       });
   };
 
@@ -69,31 +69,31 @@ const TransportList = () => {
           </div>
           <div className="my-10"></div>
           <TabPanel>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="flex flex-col gap-10">
               {vehicles.map((vehicle) => (
                 <TransportCard key={vehicle._id} vehicle={vehicle}></TransportCard>
               ))}
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* {vehicles.map((job) => (
-                <TransportCard key={job._id} job={job}></TransportCard>
-              ))} */}
+          <div className="flex flex-col gap-10">
+              {vehicles.map((vehicle) => (
+                <TransportCard key={vehicle._id} vehicle={vehicle}></TransportCard>
+              ))}
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* {vehicles.map((job) => (
-                <TransportCard key={job._id} job={job}></TransportCard>
-              ))} */}
+          <div className="flex flex-col gap-10">
+              {vehicles.map((vehicle) => (
+                <TransportCard key={vehicle._id} vehicle={vehicle}></TransportCard>
+              ))}
             </div>
           </TabPanel>
           <TabPanel>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* {vehicles.map((job) => (
-                <TransportCard key={job._id} job={job}></TransportCard>
-              ))} */}
+          <div className="flex flex-col gap-10">
+              {vehicles.map((vehicle) => (
+                <TransportCard key={vehicle._id} vehicle={vehicle}></TransportCard>
+              ))}
             </div>
           </TabPanel>
         </Tabs>

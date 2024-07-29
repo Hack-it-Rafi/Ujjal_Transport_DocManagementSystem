@@ -5,9 +5,10 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import LandingPage from './Components/General/LandingPage';
 import Root from './Components/Root';
 import TransportList from './Components/General/TransportList';
+import LandingPage from './Components/General/LandingPage';
+import TransportDetails from './Components/General/TransportDetails';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path:"transportList",
         element: <TransportList></TransportList>
+      },
+      {
+        path: "transportDetails",
+        element: <TransportDetails></TransportDetails>
       }
     ]
   }

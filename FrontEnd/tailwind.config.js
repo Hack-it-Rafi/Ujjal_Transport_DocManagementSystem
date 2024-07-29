@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        koulen: 'Koulen', // Adds a new `font-display` class
+        koulen: 'Koulen',
+        merienda: 'Merienda' // Adds a new `font-display` class
       }
     }
   },
