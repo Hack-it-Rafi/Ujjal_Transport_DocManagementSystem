@@ -1,5 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { TTransport } from './Transport.interface';
+import { Types } from './Transport.constant';
 
 const transportSchema = new Schema<TTransport>(
   {
@@ -16,6 +17,11 @@ const transportSchema = new Schema<TTransport>(
     description: {
       type: String,
     },
+    type:{
+      type: String,
+      required: true,
+      enum: Types
+  },
     imageUrl: {
       type: String,
     },
@@ -34,10 +40,6 @@ const transportSchema = new Schema<TTransport>(
     routePermitDoc: {
       type: Schema.Types.ObjectId,
       ref: 'RoutePermitDoc',
-    },
-    totalRemainingDays:{
-      type: Number,
-      default: 0
     }
   },
   {

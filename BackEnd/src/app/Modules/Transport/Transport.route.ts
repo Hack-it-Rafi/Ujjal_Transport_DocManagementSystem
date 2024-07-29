@@ -13,4 +13,6 @@ router.post(
 
 router.get('/:id', TransportControllers.getSingleTransport);
 
+router.get('/', TransportControllers.getAllTransports);
+
 export const TransportRoutes = router;
