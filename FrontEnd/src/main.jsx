@@ -9,6 +9,7 @@ import Root from './Components/Root';
 import TransportList from './Components/General/TransportList';
 import LandingPage from './Components/General/LandingPage';
 import TransportDetails from './Components/General/TransportDetails';
+import AdminDashboard from './Components/AdminDashboard/AdminDashboard';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,15 @@ const router = createBrowserRouter([
       {
         path: "transportDetails",
         element: <TransportDetails></TransportDetails>
+      },
+      {
+        path:"adminDashBoard",
+        element:<AdminDashboard></AdminDashboard>,
+        children:[
+          {
+            path:""
+          }
+        ]
       }
     ]
   }

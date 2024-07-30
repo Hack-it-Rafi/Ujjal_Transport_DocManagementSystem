@@ -40,7 +40,9 @@ const TransportList = () => {
   const handleSearch = (e) => {
     console.log(e.target.value);
     axios
-      .get(`http://localhost:8000/api/v1/transports?searchTerm=${e.target.value}`)
+      .get(
+        `http://localhost:8000/api/v1/transports?searchTerm=${e.target.value}`
+      )
       .then((res) => {
         // console.log(res.data.data);
         setVehicles(res.data.data);
@@ -55,46 +57,18 @@ const TransportList = () => {
       <div>
         <Tabs defaultFocus={true}>
           <div className="flex justify-between items-center">
-            <div className="flex-1 flex justify-center">
-              <TabList className="flex justify-center gap-10">
-                <Tab
-                  className={({ selected }) =>
-                    selected
-                      ? "border-b-4 p-2 cursor-pointer"
-                      : "cursor-pointer"
-                  }
-                  onFocus={handleAll}
-                >
+            <div className="flex-1 flex justify-center navbar-center">
+              <TabList className="flex justify-center gap-3 menu menu-horizontal">
+                <Tab onFocus={handleAll}>
                   <h1>All</h1>
                 </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    selected
-                      ? "border-b-4 p-2 cursor-pointer"
-                      : "cursor-pointer"
-                  }
-                  onFocus={handleTruck}
-                >
+                <Tab onFocus={handleTruck}>
                   <h1>Truck</h1>
                 </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    selected
-                      ? "border-b-4 p-2 cursor-pointer"
-                      : "cursor-pointer"
-                  }
-                  onFocus={handlePickup}
-                >
+                <Tab onFocus={handlePickup}>
                   <h1>Pickup</h1>
                 </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    selected
-                      ? "border-b-4 p-2 cursor-pointer"
-                      : "cursor-pointer"
-                  }
-                  onFocus={handleMotorcycle}
-                >
+                <Tab onFocus={handleMotorcycle}>
                   <h1>Motorcycle</h1>
                 </Tab>
               </TabList>
