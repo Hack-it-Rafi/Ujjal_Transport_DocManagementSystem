@@ -27,19 +27,19 @@ const transportSchema = new Schema<TTransport>(
     },
     taxDoc: {
       type: Schema.Types.ObjectId,
-      ref: 'TaxDoc',
+      ref: 'Document',
     },
     fitnessDoc: {
       type: Schema.Types.ObjectId,
-      ref: 'FitnessDoc',
+      ref: 'Document',
     },
     registrationDoc: {
       type: Schema.Types.ObjectId,
-      ref: 'RegistrationDoc',
+      ref: 'Document',
     },
     routePermitDoc: {
       type: Schema.Types.ObjectId,
-      ref: 'RoutePermitDoc',
+      ref: 'Document',
     }
   },
   {

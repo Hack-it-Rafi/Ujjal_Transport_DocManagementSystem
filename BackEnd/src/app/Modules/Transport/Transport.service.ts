@@ -10,7 +10,7 @@ const createTransportIntoDB = async (payload: TTransport) => {
 };
 
 const getAllTransportsFromDB = async (query: Record<string, unknown>) => {
-  const transportQuery = new QueryBuilder(Transport.find(), query)
+  const transportQuery = new QueryBuilder(Transport.find().populate('taxDoc').populate('fitnessDoc').populate('registrationDoc').populate('routePermitDoc'), query)
     .search(TransportSearchableFields)
     .filter()
     .sort()
