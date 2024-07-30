@@ -4,19 +4,13 @@ const AdminNav = () => {
   const navLinks = (
     <>
       <li className="mr-1">
-        <Link to="/">Home</Link>
+        <Link to="/home/adminDashboard/editRequests">Edit Requests</Link>
       </li>
       <li className="mr-1">
-        <Link to="/addJobs">Add Jobs</Link>
+        <Link to="/addJobs">Add Vehicle</Link>
       </li>
       <li className="mr-1">
-        <Link to="/myPostedJobs">My Posted Jobs</Link>
-      </li>
-      <li className="mr-1">
-        <Link to="/myBids">My Bids</Link>
-      </li>
-      <li className="">
-        <Link to="/bidRequests">Bid Requests</Link>
+        <Link to="/myPostedJobs">Users</Link>
       </li>
     </>
   );
@@ -24,7 +18,7 @@ const AdminNav = () => {
   return (
     <div className="w-full flex justify-center">
       <div className="mx-auto navbar-center flex my-5">
-        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+        <ul className="menu menu-horizontal px-3 gap-5">{navLinks}</ul>
       </div>
     </div>
   );

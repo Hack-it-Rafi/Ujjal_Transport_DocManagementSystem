@@ -10,6 +10,7 @@ import TransportList from './Components/General/TransportList';
 import LandingPage from './Components/General/LandingPage';
 import TransportDetails from './Components/General/TransportDetails';
 import AdminDashboard from './Components/AdminDashboard/AdminDashboard';
+import EditRequestList from './Components/AdminDashboard/EditRequestList';
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,12 @@ const router = createBrowserRouter([
         element: <TransportDetails></TransportDetails>
       },
       {
-        path:"adminDashBoard",
+        path:"adminDashboard",
         element:<AdminDashboard></AdminDashboard>,
         children:[
           {
-            path:""
+            path:"editRequests",
+            element:<EditRequestList></EditRequestList>
           }
         ]
       }
