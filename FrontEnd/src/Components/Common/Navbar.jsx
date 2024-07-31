@@ -1,7 +1,20 @@
 
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+
+  const navLinks = (
+    <>
+      <li className="mr-1">
+        <Link to="/home/adminDashboard/editRequests">Dashboard</Link>
+      </li>
+      <li className="mr-1">
+        <Link to="/home/transportList">Transport List</Link>
+      </li>
+    </>
+  );
+
   return (
     <div className="w-screen bg-[#1D1912] h-20">
       <div className="h-full flex items-center justify-between max-w-full mx-4">
@@ -11,6 +24,9 @@ const Navbar = () => {
           alt="logo"
         />
         <div className="flex justify-between gap-4">
+          <div className="flex justify-center items-center gap-2">
+          <ul className="flex text-white px-3 gap-5">{navLinks}</ul>
+          </div>
           <button>
             <IoMdNotificationsOutline className="text-white text-3xl" />
           </button>

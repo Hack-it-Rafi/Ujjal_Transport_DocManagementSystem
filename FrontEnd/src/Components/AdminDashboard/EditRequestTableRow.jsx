@@ -4,7 +4,7 @@ const EditRequestTableRow = ({editRequest}) => {
     const formattedDateOfExpiry = new Date(dateOfExpiry).toISOString().split('T')[0];
     const formattedCreatedAt = new Date(createdAt).toISOString().split('T')[0];
     return (
-        <tr>
+        <tr className="text-lg">
         <th>{formattedCreatedAt}</th>
         <td>{type}</td>
         <td>{vehicleName}</td>

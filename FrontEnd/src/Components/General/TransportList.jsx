@@ -8,14 +8,14 @@ const TransportList = () => {
   const [vehicles, setVehicles] = useState([]);
 
   const handleAll = () => {
-    axios.get("http://localhost:8000/api/v1/transports/").then((res) => {
+    axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
       // console.log(res.data.data);
       setVehicles(res.data.data);
     });
   };
   const handleTruck = () => {
     axios
-      .get("http://localhost:8000/api/v1/transports?type=Truck")
+      .get("http://localhost:8000/api/v1/transport?type=Truck")
       .then((res) => {
         // console.log(res.data.data);
         setVehicles(res.data.data);
@@ -23,7 +23,7 @@ const TransportList = () => {
   };
   const handlePickup = () => {
     axios
-      .get("http://localhost:8000/api/v1/transports?type=Pickup")
+      .get("http://localhost:8000/api/v1/transport?type=Pickup")
       .then((res) => {
         // console.log(res.data.data);
         setVehicles(res.data.data);
@@ -31,7 +31,7 @@ const TransportList = () => {
   };
   const handleMotorcycle = () => {
     axios
-      .get("http://localhost:8000/api/v1/transports?type=Motorcycle")
+      .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
       .then((res) => {
         // console.log(res.data.data);
         setVehicles(res.data.data);
@@ -41,7 +41,7 @@ const TransportList = () => {
     console.log(e.target.value);
     axios
       .get(
-        `http://localhost:8000/api/v1/transports?searchTerm=${e.target.value}`
+        `http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`
       )
       .then((res) => {
         // console.log(res.data.data);

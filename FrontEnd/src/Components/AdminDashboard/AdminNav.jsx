@@ -7,7 +7,7 @@ const AdminNav = () => {
         <Link to="/home/adminDashboard/editRequests">Edit Requests</Link>
       </li>
       <li className="mr-1">
-        <Link to="/addJobs">Add Vehicle</Link>
+        <Link to="/home/adminDashboard/addVehicle">Add Vehicle</Link>
       </li>
       <li className="mr-1">
         <Link to="/myPostedJobs">Users</Link>

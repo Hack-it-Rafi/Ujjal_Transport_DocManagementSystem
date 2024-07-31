@@ -11,6 +11,7 @@ import LandingPage from './Components/General/LandingPage';
 import TransportDetails from './Components/General/TransportDetails';
 import AdminDashboard from './Components/AdminDashboard/AdminDashboard';
 import EditRequestList from './Components/AdminDashboard/EditRequestList';
+import AddVehicle from './Components/AdminDashboard/AddVehicle';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
           {
             path:"editRequests",
             element:<EditRequestList></EditRequestList>
+          },
+          {
+            path: "addVehicle",
+            element:<AddVehicle></AddVehicle>
           }
         ]
       }

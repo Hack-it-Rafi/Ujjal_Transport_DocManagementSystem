@@ -20,14 +20,15 @@ const EditRequestList = () => {
       <div className="overflow-x-auto bg-white rounded-lg">
         <table className="table">
           {/* head */}
-          <thead>
+          <thead className="bg-[#F5F5F5]">
             <tr className="text-2xl font-serif font-bold">
-              <th>Created</th>
-              <th>Document Name</th>
-              <th>Vehicle Name</th>
-              <th>Editor Name</th>
-              <th>Action</th>
+              <th className="border-2 border-b-[#FFD576]">Created</th>
+              <th className="border-2 border-b-[#FFD576]">Document Name</th>
+              <th className="border-2 border-b-[#FFD576]">Vehicle Name</th>
+              <th className="border-2 border-b-[#FFD576]">Editor Name</th>
+              <th className="border-2 border-b-[#FFD576]">Action</th>
             </tr>
+            
           </thead>
           <tbody>
             {/* row 1 */}
