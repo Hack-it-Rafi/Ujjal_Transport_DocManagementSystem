@@ -68,12 +68,12 @@ const TransportDetails = () => {
     const DocumentCard = ({ document }) => {
         const color = getColor(document.dateOfExpiry);
         return (
-            <div className={`bg-white p-6 rounded-xl drop-shadow-sm border-2 border-${color}`}>
+            <div className={`bg-white rounded-lg drop-shadow-sm border-2 border-${color}`}>
                 <div className="h-1/2 flex relative">
                     <img src={document.imageUrl} alt="Document" className="z-0" />
                     <div className="absolute flex text-2xl lg:text-3xl p-6 border-2 border-white rounded-lg font-koulen text-white hover:text-gray-300 bg-black opacity-50 h-full w-full justify-center items-center z-20">VIEW IMAGE</div>
                 </div>
-                <div className="flex flex-col justify-center items-center mt-2 space-y-2">
+                <div className="flex flex-col justify-center items-center mt-2 space-y-2 p-6">
                     <h2 className="text-xl md:text-3xl font-semibold">{document.type}</h2>
                     <div className="flex gap-2">
                         <img src="/clock.svg" alt="clock" className="w-5" />
