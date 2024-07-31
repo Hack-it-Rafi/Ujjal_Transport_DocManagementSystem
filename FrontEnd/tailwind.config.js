@@ -8,7 +8,8 @@ export default {
     extend: {
       fontFamily: {
         koulen: 'Koulen',
-        merienda: 'Merienda' // Adds a new `font-display` class
+        merienda: 'Merienda', // Adds a new `font-display` class
+        frank: 'Frank Ruhl Libre'
       }
     }
   },
