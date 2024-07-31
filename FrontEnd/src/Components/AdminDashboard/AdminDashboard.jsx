@@ -3,7 +3,7 @@ import AdminNav from "./AdminNav";
 
 const AdminDashboard = () => {
     return (
-        <div className="w-screen">
+        <div>
             <AdminNav></AdminNav>
             <Outlet></Outlet>
         </div>

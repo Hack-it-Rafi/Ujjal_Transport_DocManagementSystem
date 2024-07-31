@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-export type TType = 'PickUp' | 'Truck' | 'Motorcycle'
+export type TType = 'Pickup' | 'Truck' | 'Motorcycle'
 
 export type TTransport = {
     titleNumber: string;

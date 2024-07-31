@@ -1,15 +1,14 @@
-import { PiTruckLight } from "react-icons/pi";
 import { GrDocumentStore } from "react-icons/gr";
 import { LuClock3 } from "react-icons/lu";
 
 const TransportCard = ({ vehicle }) => {
   const {
-    _id,
+    // _id,
     titleNumber,
-    ownerName,
-    description,
-    type,
-    imageUrl,
+    // ownerName,
+    // description,
+    // type,
+    // imageUrl,
     taxDoc,
     fitnessDoc,
     registrationDoc,
@@ -21,10 +20,10 @@ const TransportCard = ({ vehicle }) => {
     return Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
   };
 
-  const taxDocRemainingDays = calculateRemainingDays(taxDoc.dateOfExpiry);
-  const fitnessDocRemainingDays = calculateRemainingDays(fitnessDoc.dateOfExpiry);
-  const registrationDocRemainingDays = calculateRemainingDays(registrationDoc.dateOfExpiry);
-  const routePermitDocRemainingDays = calculateRemainingDays(routePermitDoc.dateOfExpiry);
+  const taxDocRemainingDays = calculateRemainingDays(taxDoc?.dateOfExpiry);
+  const fitnessDocRemainingDays = calculateRemainingDays(fitnessDoc?.dateOfExpiry);
+  const registrationDocRemainingDays = calculateRemainingDays(registrationDoc?.dateOfExpiry);
+  const routePermitDocRemainingDays = calculateRemainingDays(routePermitDoc?.dateOfExpiry);
 
   return (
     <div className="w-[1280px] h-[250px] mx-auto bg-white rounded-xl border border-orange-600 flex justify-center items-center">

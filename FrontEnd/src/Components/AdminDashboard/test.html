@@ -1,0 +1,272 @@
+<div className="text-center pt-3 pb-3">
+  <h2 className="text-xl font-medium ">Documents</h2>
+</div>
+
+<div className="">
+  <div className="border-[3px] ">
+    <div className="text-center pt-3 pb-3">
+      <h2 className="text-xl font-medium ">Tax Document</h2>
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+  </div>
+  <div className="border-[3px] p-4">
+    <div className="text-center pt-3 pb-3">
+      <h2 className="text-xl font-medium ">Registration Document</h2>
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+  </div>
+  <div className="border-[3px] p-4">
+    <div className="text-center pt-3 pb-3">
+      <h2 className="text-xl font-medium ">Fitness Documents</h2>
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+  </div>
+  <div className="border-[3px] p-4">
+    <div className="text-center pt-3 pb-3">
+      <h2 className="text-xl font-medium ">Route Permit</h2>
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+    <div className="form-control w-full">
+      <label className="label">
+        <span className="label-text">Description</span>
+      </label>
+      <input
+        type="text"
+        required
+        placeholder="Type here"
+        name="title"
+        className="input input-bordered w-full"
+      />
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div className="card bg-base-100 max-w-7xl mx-auto shrink-0 shadow-2xl">
+  {/* <div className="text-center pt-10 pb-5">
+    <h2 className="text-4xl font-bold ">Add New Vehicle</h2>
+  </div> */}
+  <form onSubmit={handleAddVehicle} className="card-body">
+    {/* Normal Info */}
+    <div className="form-control">
+      <div className="flex gap-4 md:gap-10">
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Title Number</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="title"
+            className="input input-bordered w-full"
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Owner</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="ownerName"
+            className="input input-bordered w-full"
+          />
+        </div>
+      </div>
+    </div>
+    <div className="form-control">
+      <div className="flex gap-4 md:gap-10">
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Vehicle Type</span>
+          </label>
+          <select
+            required
+            name="category"
+            className="select select-bordered w-full "
+          >
+            <option disabled selected>
+              Select Category
+            </option>
+            <option>Truck</option>
+            <option>Pickup</option>
+            <option>Motorcycle</option>
+          </select>
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Image URL</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="image"
+            className="input input-bordered w-full"
+          />
+        </div>
+      </div>
+    </div>
+    <div className="form-control">
+      <div className="form-control w-full">
+        <label className="label">
+          <span className="label-text">Description</span>
+        </label>
+        <textarea
+          className="textarea textarea-bordered"
+          type="text"
+          placeholder="Type here"
+          required
+          name="description"
+        ></textarea>
+      </div>
+    </div>
+    {/* Document Info */}
+    <div className="form-control">
+      <div className="flex gap-4 md:gap-10">
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Title Number</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="title"
+            className="input input-bordered w-full"
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Owner</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="ownerName"
+            className="input input-bordered w-full"
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Title Number</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="title"
+            className="input input-bordered w-full"
+          />
+        </div>
+        <div className="form-control w-full">
+          <label className="label">
+            <span className="label-text">Owner</span>
+          </label>
+          <input
+            type="text"
+            required
+            placeholder="Type here"
+            name="ownerName"
+            className="input input-bordered w-full"
+          />
+        </div>
+      </div>
+    </div>
+    <div className="form-control">
+        hello
+    </div>
+    
+    <div className="form-control mt-6">
+      <button className="btn bg-[#FFD576]">Login</button>
+    </div>
+  </form>
+</div>

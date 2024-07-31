@@ -16,8 +16,8 @@ const Navbar = () => {
   );
 
   return (
-    <div className="w-screen bg-[#1D1912] h-20">
-      <div className="h-full flex items-center justify-between max-w-full mx-4">
+    <div className="bg-[#1D1912] h-20">
+      <div className="h-full flex items-center justify-between max-w-7xl mx-auto">
         <img
           className="w-44"
           src="/ujjal-flour-high-resolution-logo-transparent.png"
