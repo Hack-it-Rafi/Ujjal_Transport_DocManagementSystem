@@ -1,62 +1,93 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const AddVehicle = () => {
-    const handleAddVehicle = async (e) => {
-        e.preventDefault();
-      
-        const form = e.target;
-      
-        const titleNumber = form.titleName.value;
-        const ownerName = form.ownerName.value;
-        const type = form.category.value;
-        const imageUrl = form.vehicleImage.value;
-        const description = form.description.value;
-        
-        const taxDocImageUrl = form.taxImage.value;
-        const taxDocExpiry = form.taxDate.value;
-        
-        const registrationDocImageUrl = form.registrationImage.value;
-        const registrationDocExpiry = form.registrationDate.value;
-        
-        const fitnessDocImage = form.fitnessImage.value;
-        const fitnessDocExpiry = form.fitnessDate.value;
-        
-        const routePermitImage = form.routePermitImage.value;
-        const routePermitExpiry = form.routePermitDate.value;
-      
-        try {
-          const [taxDocRes, registrationDocRes, fitnessDocRes, routePermitDocRes] = await Promise.all([
-            axios.post('http://localhost:8000/api/v1/document/add-document', { imageUrl: taxDocImageUrl, type: "Tax", dateOfExpiry: taxDocExpiry }),
-            axios.post('http://localhost:8000/api/v1/document/add-document', { imageUrl: registrationDocImageUrl, type: "Registration", dateOfExpiry: registrationDocExpiry }),
-            axios.post('http://localhost:8000/api/v1/document/add-document', { imageUrl: fitnessDocImage, type: "Fitness", dateOfExpiry: fitnessDocExpiry }),
-            axios.post('http://localhost:8000/api/v1/document/add-document', { imageUrl: routePermitImage, type: "RoutePermit", dateOfExpiry: routePermitExpiry })
-          ]);
-      
-          const taxDocId = taxDocRes.data.data._id;
-          const registrationDocId = registrationDocRes.data.data._id;
-          const fitnessDocId = fitnessDocRes.data.data._id;
-          const routePermitDocId = routePermitDocRes.data.data._id;
-      
-          const vehicle = { titleNumber, ownerName, type, description, imageUrl, taxDoc: taxDocId, fitnessDoc: fitnessDocId, registrationDoc: registrationDocId, routePermitDoc: routePermitDocId };
-      
-          console.log(vehicle);
-      
-          axios.post('http://localhost:8000/api/v1/transport/add-transport', vehicle)
-            .then(res => {
-              console.log(res.data.data);
-              Swal.fire({
-                title: 'Vehicle add Successful!',
-                text: 'Enjoy Exploring!',
-                icon: 'success',
-                confirmButtonText: 'Continue'
-              });
-              // navigate('/home/transportList');
-            });
-        } catch (error) {
-          console.error('Error adding documents or vehicle:', error);
-        }
+  const navigate = useNavigate();
+
+  const handleAddVehicle = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const titleNumber = form.titleName.value;
+    const ownerName = form.ownerName.value;
+    const type = form.category.value;
+    const imageUrl = form.vehicleImage.value;
+    const description = form.description.value;
+
+    const taxDocImageUrl = form.taxImage.value;
+    const taxDocExpiry = form.taxDate.value;
+
+    const registrationDocImageUrl = form.registrationImage.value;
+    const registrationDocExpiry = form.registrationDate.value;
+
+    const fitnessDocImage = form.fitnessImage.value;
+    const fitnessDocExpiry = form.fitnessDate.value;
+
+    const routePermitImage = form.routePermitImage.value;
+    const routePermitExpiry = form.routePermitDate.value;
+
+    try {
+      const [taxDocRes, registrationDocRes, fitnessDocRes, routePermitDocRes] =
+        await Promise.all([
+          axios.post("http://localhost:8000/api/v1/document/add-document", {
+            imageUrl: taxDocImageUrl,
+            type: "Tax",
+            dateOfExpiry: taxDocExpiry,
+          }),
+          axios.post("http://localhost:8000/api/v1/document/add-document", {
+            imageUrl: registrationDocImageUrl,
+            type: "Registration",
+            dateOfExpiry: registrationDocExpiry,
+          }),
+          axios.post("http://localhost:8000/api/v1/document/add-document", {
+            imageUrl: fitnessDocImage,
+            type: "Fitness",
+            dateOfExpiry: fitnessDocExpiry,
+          }),
+          axios.post("http://localhost:8000/api/v1/document/add-document", {
+            imageUrl: routePermitImage,
+            type: "RoutePermit",
+            dateOfExpiry: routePermitExpiry,
+          }),
+        ]);
+
+      const taxDocId = taxDocRes.data.data._id;
+      const registrationDocId = registrationDocRes.data.data._id;
+      const fitnessDocId = fitnessDocRes.data.data._id;
+      const routePermitDocId = routePermitDocRes.data.data._id;
+
+      const vehicle = {
+        titleNumber,
+        ownerName,
+        type,
+        description,
+        imageUrl,
+        taxDoc: taxDocId,
+        fitnessDoc: fitnessDocId,
+        registrationDoc: registrationDocId,
+        routePermitDoc: routePermitDocId,
       };
+
+      console.log(vehicle);
+
+      axios
+        .post("http://localhost:8000/api/v1/transport/add-transport", vehicle)
+        .then((res) => {
+          console.log(res.data.data);
+          Swal.fire({
+            title: "Vehicle add Successful!",
+            text: "Enjoy Exploring!",
+            icon: "success",
+            confirmButtonText: "Continue",
+          });
+          navigate("/home/transportList");
+        });
+    } catch (error) {
+      console.error("Error adding documents or vehicle:", error);
+    }
+  };
   return (
     <div className="pb-10">
       <div className="card bg-base-100 w-full mx-auto max-w-7xl shrink-0 shadow-2xl">

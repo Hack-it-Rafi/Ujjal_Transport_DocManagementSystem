@@ -1,25 +1,53 @@
-
-import express, { Application, Request, Response} from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import jwt from 'jsonwebtoken';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
 import router from './app/routes';
 const app: Application = express();
 // const port = 3000
 
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace this with your frontend URL
+  credentials: true, // Allow cookies and other credentials
+};
+
 // parsers
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // application routes
 app.use('/api/v1', router);
 
-const test = async(req: Request, res: Response) => {
-  Promise.reject();
-  const a = 10;
-  res.send(a);
-}
-app.get('/', test);
+app.post('/api/v1/jwt', async (req: Request, res: Response) => {
+  const user = req.body;
+
+  try {
+    const token = jwt.sign(user, process.env.JWT_ACCESS_SECRET as string, {
+      expiresIn: '1h',
+    });
+
+    res
+      .cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        maxAge: 3600000, // 1 hour in milliseconds
+      })
+      .send({ success: true });
+  } catch (error) {
+    res.status(500).send({ success: false, message: 'JWT generation failed' });
+  }
+});
+
+app.post('/api/v1/logout', async (req: Request, res: Response) => {
+  res
+    .clearCookie('token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+    })
+    .send({ success: true });
+});
 
 app.use(globalErrorHandler);
 

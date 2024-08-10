@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import EditRequestTableRow from "./EditRequestTableRow";
+import axios from "axios";
 
 const EditRequestList = () => {
   const [editRequests, setEditRequests] = useState([]);
@@ -28,7 +28,6 @@ const EditRequestList = () => {
               <th className="border-2 border-b-[#FFD576]">Editor Name</th>
               <th className="border-2 border-b-[#FFD576]">Action</th>
             </tr>
-            
           </thead>
           <tbody>
             {/* row 1 */}

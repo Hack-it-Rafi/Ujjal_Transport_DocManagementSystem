@@ -35,7 +35,7 @@ const TransportCard = ({ vehicle }) => {
       </div>
       <div className="w-3/5">
         <div className="m-6 flex flex-col gap-4">
-          <doc
+          <div
             className={`Registration w-full rounded-lg h-11 flex justify-around items-center ${
               registrationDocRemainingDays <= 0
                     ? "bg-[#ff4545e8]"
@@ -73,8 +73,8 @@ const TransportCard = ({ vehicle }) => {
                 })()}
               </p>
             </div>
-          </doc>
-          <doc
+          </div>
+          <div
             className={`Tax w-full rounded-lg h-11 flex justify-around items-center ${
               taxDocRemainingDays <= 0
                     ? "bg-[#ff4545e8]"
@@ -112,8 +112,8 @@ const TransportCard = ({ vehicle }) => {
                 })()}
               </p>
             </div>
-          </doc>
-          <doc
+          </div>
+          <div
             className={`Tax w-full rounded-lg h-11 flex justify-around items-center ${
               fitnessDocRemainingDays <= 0
                     ? "bg-[#ff4545e8]"
@@ -151,8 +151,8 @@ const TransportCard = ({ vehicle }) => {
                 })()}
               </p>
             </div>
-          </doc>
-          <doc
+          </div>
+          <div
             className={`Tax w-full rounded-lg h-11 flex justify-around items-center ${
               routePermitDocRemainingDays <= 0
                     ? "bg-[#ff4545e8]"
@@ -190,7 +190,7 @@ const TransportCard = ({ vehicle }) => {
                 })()}
               </p>
             </div>
-          </doc>
+          </div>
         </div>
       </div>
     </div>

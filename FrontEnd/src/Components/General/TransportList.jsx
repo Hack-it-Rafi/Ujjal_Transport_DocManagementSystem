@@ -1,15 +1,15 @@
-import axios from "axios";
 import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import TransportCard from "../Common/TransportCard";
 import "react-tabs/style/react-tabs.css";
+import axios from "axios";
+
 
 const TransportList = () => {
   const [vehicles, setVehicles] = useState([]);
 
   const handleAll = () => {
     axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
-      // console.log(res.data.data);
       setVehicles(res.data.data);
     });
   };
@@ -38,7 +38,6 @@ const TransportList = () => {
       });
   };
   const handleSearch = (e) => {
-    console.log(e.target.value);
     axios
       .get(
         `http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`

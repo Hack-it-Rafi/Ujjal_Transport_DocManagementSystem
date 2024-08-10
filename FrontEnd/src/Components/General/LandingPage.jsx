@@ -1,12 +1,5 @@
 const LandingPage = () => {
   return (
-    // <div className="w-screen h-screen">
-    //     <div className="bg-[#1D1912] h-full">
-    //         <div></div>
-    //         <div></div>
-    //     </div>
-    //     <div></div>
-    // </div>
     <section className="bg-[#1D1912] h-screen">
       <div className="flex h-full">
         <div className="flex-1 flex flex-col">
@@ -30,14 +23,16 @@ const LandingPage = () => {
                   FLOUR MILLS
                 </h4>
                 <p className="font-merienda text-xl md:text-3xl">Since 1983</p>
-                <button className="btn bg-[#F3F3E6] text-black font-koulen px-2 md:px-6 py-1 md:py-2 text-xl md:text-3xl flex gap-6 rounded-lg">
-                  Transports{" "}
-                  <img
-                    src="delivery (1).png"
-                    alt="logo"
-                    className="w-7 md:w-9"
-                  />
-                </button>
+                <a href="/home/transportList">
+                  <button className="btn bg-[#F3F3E6] text-black font-koulen px-2 md:px-6 py-1 md:py-2 text-xl md:text-3xl flex gap-6 rounded-lg">
+                    Transports{" "}
+                    <img
+                      src="delivery (1).png"
+                      alt="logo"
+                      className="w-7 md:w-9"
+                    />
+                  </button>
+                </a>
               </div>
             </div>
           </div>
