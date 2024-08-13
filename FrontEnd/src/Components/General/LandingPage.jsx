@@ -1,4 +1,19 @@
+import { useContext } from "react";
+import { AuthContext } from "../Authentication/AuthProvider";
+import { useNavigate } from "react-router-dom";
+
 const LandingPage = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    if (user) {
+      navigate("/home/transportList");
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
     <section className="bg-[#1D1912] h-screen">
       <div className="flex h-full">
@@ -9,9 +24,6 @@ const LandingPage = () => {
               alt="logo"
               className="w-28"
             />
-            <button className="btn bg-[#F3F3E6] text-black rounded-lg font-koulen px-3 md:px-6 py-1 md:py-2 text-lg md:text-3xl">
-              Login
-            </button>
           </div>
           <div className="flex flex-1 justify-center items-center -mt-16">
             <div className="flex flex-col justify-center items-center">
@@ -23,16 +35,23 @@ const LandingPage = () => {
                   FLOUR MILLS
                 </h4>
                 <p className="font-merienda text-xl md:text-3xl">Since 1983</p>
-                <a href="/home/transportList">
-                  <button className="btn bg-[#F3F3E6] text-black font-koulen px-2 md:px-6 py-1 md:py-2 text-xl md:text-3xl flex gap-6 rounded-lg">
-                    Transports{" "}
-                    <img
-                      src="delivery (1).png"
-                      alt="logo"
-                      className="w-7 md:w-9"
-                    />
-                  </button>
-                </a>
+                <button
+                  onClick={handleButtonClick}
+                  className="btn bg-[#F3F3E6] text-black font-koulen px-2 md:px-6 py-1 md:py-2 text-xl md:text-3xl flex gap-6 rounded-lg"
+                >
+                  {user ? (
+                    <>
+                      Transports{" "}
+                      <img
+                        src="delivery (1).png"
+                        alt="logo"
+                        className="w-7 md:w-9"
+                      />
+                    </>
+                  ) : (
+                    "Login"
+                  )}
+                </button>
               </div>
             </div>
           </div>

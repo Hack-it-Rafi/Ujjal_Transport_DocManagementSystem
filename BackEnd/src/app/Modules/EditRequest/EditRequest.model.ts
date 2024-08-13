@@ -8,7 +8,7 @@ const editRequestSchema = new Schema<TEditRequest>(
         type: String,
         required: true
       },
-      editorName:{
+      editorEmail:{
         type:String,
         required: true
       },

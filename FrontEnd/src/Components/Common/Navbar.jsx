@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Authentication/AuthProvider";
 import useAdmin from "../Hooks/useAdmin";
@@ -31,31 +30,29 @@ const Navbar = () => {
           src="/ujjal-flour-high-resolution-logo-transparent.png"
           alt="logo"
         />
+
         <div className="flex justify-between gap-4">
-          {isAdmin=="admin"&&<div className="flex justify-center items-center gap-2">
-            <ul className="flex text-white px-3 gap-5">{navLinks}</ul>
-          </div>}
-          <button>
-            <IoMdNotificationsOutline className="text-white text-3xl" />
-          </button>
-          {
-            user ? (
-              <>
-                <button
-                  onClick={handleLogOut}
-                  className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white"
-                >
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <Link to="/login">
-                <button className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white">
-                  Log In
-                </button>
-              </Link>
-            )
-          }
+          {isAdmin == "admin" && (
+            <div className="flex justify-center items-center gap-2">
+              <ul className="flex text-white px-3 gap-5">{navLinks}</ul>
+            </div>
+          )}
+          {user ? (
+            <>
+              <button
+                onClick={handleLogOut}
+                className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link to="/login">
+              <button className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white">
+                Log In
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

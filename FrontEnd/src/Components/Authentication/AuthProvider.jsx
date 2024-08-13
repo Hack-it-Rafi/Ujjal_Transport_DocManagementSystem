@@ -15,9 +15,19 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+  const createUser = async (email, password) => {
+    try {
+      setLoading(true);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await signOut(auth);
+  
+      return userCredential; 
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error; 
+    } finally {
+      setLoading(false);
+    }
   };
 
   const updateUser = (name, photo) => {

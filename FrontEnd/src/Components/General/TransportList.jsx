@@ -8,48 +8,72 @@ import axios from "axios";
 const TransportList = () => {
   const [vehicles, setVehicles] = useState([]);
 
-  const handleAll = () => {
-    axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
-      setVehicles(res.data.data);
+const calculateRemainingDays = (expiryDate) => {
+  const today = new Date();
+  const expiry = new Date(expiryDate);
+  const timeDiff = expiry - today;
+  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
+  return daysDiff > 0 ? daysDiff : 0; // If the date has passed, return 0
+};
+
+const calculateTotalRemainingDays = (vehicle) => {
+  const { fitnessDoc, registrationDoc, routePermitDoc, taxDoc } = vehicle;
+
+  return (
+    calculateRemainingDays(fitnessDoc?.dateOfExpiry) +
+    calculateRemainingDays(registrationDoc?.dateOfExpiry) +
+    calculateRemainingDays(routePermitDoc?.dateOfExpiry) +
+    calculateRemainingDays(taxDoc?.dateOfExpiry)
+  );
+};
+
+const handleResponse = (data) => {
+  const sortedData = data.sort(
+    (a, b) => calculateTotalRemainingDays(a) - calculateTotalRemainingDays(b)
+  );
+  setVehicles(sortedData);
+};
+
+const handleAll = () => {
+  axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
+    handleResponse(res.data.data);
+  });
+};
+
+const handleTruck = () => {
+  axios
+    .get("http://localhost:8000/api/v1/transport?type=Truck")
+    .then((res) => {
+      handleResponse(res.data.data);
     });
-  };
-  const handleTruck = () => {
-    axios
-      .get("http://localhost:8000/api/v1/transport?type=Truck")
-      .then((res) => {
-        // console.log(res.data.data);
-        setVehicles(res.data.data);
-      });
-  };
-  const handlePickup = () => {
-    axios
-      .get("http://localhost:8000/api/v1/transport?type=Pickup")
-      .then((res) => {
-        // console.log(res.data.data);
-        setVehicles(res.data.data);
-      });
-  };
-  const handleMotorcycle = () => {
-    axios
-      .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
-      .then((res) => {
-        // console.log(res.data.data);
-        setVehicles(res.data.data);
-      });
-  };
-  const handleSearch = (e) => {
-    axios
-      .get(
-        `http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`
-      )
-      .then((res) => {
-        // console.log(res.data.data);
-        setVehicles(res.data.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+};
+
+const handlePickup = () => {
+  axios
+    .get("http://localhost:8000/api/v1/transport?type=Pickup")
+    .then((res) => {
+      handleResponse(res.data.data);
+    });
+};
+
+const handleMotorcycle = () => {
+  axios
+    .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
+    .then((res) => {
+      handleResponse(res.data.data);
+    });
+};
+
+const handleSearch = (e) => {
+  axios
+    .get(`http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`)
+    .then((res) => {
+      handleResponse(res.data.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row py-10 justify-center gap-8 px-5">

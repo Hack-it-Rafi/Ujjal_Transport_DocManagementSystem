@@ -13,6 +13,10 @@ const documentSchema = new Schema<TDocument>(
         required: true,
         enum: Types
     },
+    vehicle:{
+      type: String,
+      required: true,
+    },
     dateOfExpiry: {
       type: Date,
       required: true,

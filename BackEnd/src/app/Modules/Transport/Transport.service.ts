@@ -50,7 +50,7 @@ const getAllTransportsFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleTransportFromDB = async (id: string) => {
-  const result = await Transport.findById(id);
+  const result = await Transport.findById(id).populate('taxDoc').populate('fitnessDoc').populate('registrationDoc').populate('routePermitDoc');
   return result;
 };
 

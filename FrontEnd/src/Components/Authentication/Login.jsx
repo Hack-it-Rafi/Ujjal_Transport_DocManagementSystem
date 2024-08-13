@@ -2,14 +2,13 @@ import { useContext, useState } from "react";
 import { AuthContext } from "./AuthProvider";
 import Swal from "sweetalert2";
 import logo from "/login.png";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const [success, setSuccess] = useState("");
   const { signIn } = useContext(AuthContext);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
@@ -35,7 +34,7 @@ const Login = () => {
           })
           .then((res) => {
             if (res.data.success) {
-              navigate(location?.state ? location.state : "/");
+              navigate("/home/transportList");
             }
           })
           .catch((error) => {

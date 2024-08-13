@@ -1,9 +1,11 @@
 import { GrDocumentStore } from "react-icons/gr";
 import { LuClock3 } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 
 const TransportCard = ({ vehicle }) => {
+  const navigate = useNavigate();
   const {
-    // _id,
+    _id,
     titleNumber,
     // ownerName,
     // description,
@@ -20,13 +22,17 @@ const TransportCard = ({ vehicle }) => {
     return Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
   };
 
+  const handleVehicleDetail = ()=>{
+    navigate(`/home/transportDetails/${_id}`)
+  }
+
   const taxDocRemainingDays = calculateRemainingDays(taxDoc?.dateOfExpiry);
   const fitnessDocRemainingDays = calculateRemainingDays(fitnessDoc?.dateOfExpiry);
   const registrationDocRemainingDays = calculateRemainingDays(registrationDoc?.dateOfExpiry);
   const routePermitDocRemainingDays = calculateRemainingDays(routePermitDoc?.dateOfExpiry);
 
   return (
-    <div className="w-[1280px] h-[250px] mx-auto bg-white rounded-xl border border-orange-600 flex justify-center items-center">
+    <div onClick={handleVehicleDetail} className="w-[1280px] h-[250px] mx-auto bg-white rounded-xl border border-orange-600 flex justify-center items-center">
       <div className="w-2/5 h-full">
         {/* <PiTruckLight /> */}
         <div className="h-full flex justify-center items-center">

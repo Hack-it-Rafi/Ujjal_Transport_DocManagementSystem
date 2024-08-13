@@ -8,8 +8,8 @@ const app: Application = express();
 // const port = 3000
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace this with your frontend URL
-  credentials: true, // Allow cookies and other credentials
+  origin: 'http://localhost:5173',
+  credentials: true, 
 };
 
 // parsers

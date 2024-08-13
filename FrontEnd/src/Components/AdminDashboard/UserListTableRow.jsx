@@ -27,7 +27,28 @@ const UserListTableRow = ({ user }) => {
       }
     });
   };
-  const handleUpdateUser = () => {};
+  const handleUpdateUser = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Update!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .patch(`http://localhost:8000/api/v1/user/${_id}`, {role:"admin"})
+          .then((res) => {
+            if (res.status === 200) {
+              window.location.reload();
+            }
+          })
+          .catch((error) => console.error(error));
+      }
+    });
+  };
   return (
     <tr className="text-lg">
       <th>{formattedCreatedAt}</th>

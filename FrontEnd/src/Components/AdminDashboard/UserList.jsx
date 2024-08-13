@@ -6,18 +6,19 @@ import axios from "axios";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
-  const { createUser} = useContext(AuthContext);
+  const { user, createUser} = useContext(AuthContext);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/v1/user")
       .then((res) => {
-        setUsers(res.data.data);
+        const filteredUsers = res.data.data.filter((u) => u.email !== user.email);
+        setUsers(filteredUsers);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [user]);
   const handleAddUser = () => {
     let nameInput, emailInput, phoneInput, passwordInput, roleInput;
 

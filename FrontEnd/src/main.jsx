@@ -15,6 +15,7 @@ import Login from "./Components/Authentication/Login";
 import PrivateRoute from "./Components/Authentication/PrivateRoute";
 import AdminRoute from "./Components/Authentication/AdminRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import EditDocument from "./Components/General/EditDocument";
 
 const queryClient = new QueryClient();
 
@@ -40,10 +41,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "transportDetails",
+        path: "transportDetails/:id",
         element: (
           <PrivateRoute>
             <TransportDetails></TransportDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "editDocument/:id",
+        element: (
+          <PrivateRoute>
+            <EditDocument></EditDocument>
           </PrivateRoute>
         ),
       },

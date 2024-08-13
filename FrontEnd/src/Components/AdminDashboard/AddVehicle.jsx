@@ -34,21 +34,25 @@ const AddVehicle = () => {
           axios.post("http://localhost:8000/api/v1/document/add-document", {
             imageUrl: taxDocImageUrl,
             type: "Tax",
+            vehicle: titleNumber,
             dateOfExpiry: taxDocExpiry,
           }),
           axios.post("http://localhost:8000/api/v1/document/add-document", {
             imageUrl: registrationDocImageUrl,
             type: "Registration",
+            vehicle: titleNumber,
             dateOfExpiry: registrationDocExpiry,
           }),
           axios.post("http://localhost:8000/api/v1/document/add-document", {
             imageUrl: fitnessDocImage,
             type: "Fitness",
+            vehicle: titleNumber,
             dateOfExpiry: fitnessDocExpiry,
           }),
           axios.post("http://localhost:8000/api/v1/document/add-document", {
             imageUrl: routePermitImage,
             type: "RoutePermit",
+            vehicle: titleNumber,
             dateOfExpiry: routePermitExpiry,
           }),
         ]);

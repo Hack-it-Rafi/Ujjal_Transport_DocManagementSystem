@@ -25,7 +25,7 @@ const EditRequestList = () => {
               <th className="border-2 border-b-[#FFD576]">Created</th>
               <th className="border-2 border-b-[#FFD576]">Document Name</th>
               <th className="border-2 border-b-[#FFD576]">Vehicle Name</th>
-              <th className="border-2 border-b-[#FFD576]">Editor Name</th>
+              <th className="border-2 border-b-[#FFD576]">Editor</th>
               <th className="border-2 border-b-[#FFD576]">Action</th>
             </tr>
           </thead>
