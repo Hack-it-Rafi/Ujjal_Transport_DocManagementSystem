@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FcAlarmClock } from "react-icons/fc";
 
 const TransportDetails = () => {
   const [vehicles, setVehicle] = useState();
@@ -24,7 +25,7 @@ const TransportDetails = () => {
   }
 
   const vehicle = {
-    imageUrl: vehicles.imageUrl,
+    imageUrl: "https://morth.nic.in/sites/default/files/all_india_transport.jpg",
     name: vehicles.titleNumber,
     owner: vehicles.ownerName,
     description: vehicles.description,
@@ -33,25 +34,25 @@ const TransportDetails = () => {
   const documents = [
     {
       id: vehicles.taxDoc._id,
-      imageUrl: vehicles.taxDoc.imageUrl,
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdD06FAJ1tlsxJbJ2RwHVWYS0iMgtrqnUDZw&s",
       type: vehicles.taxDoc.type,
       dateOfExpiry: vehicles.taxDoc.dateOfExpiry,
     },
     {
       id: vehicles.registrationDoc._id,
-      imageUrl: vehicles.registrationDoc.imageUrl,
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXTFM7CLdq05bKWroFmdCw5rzjLXZNeGF0WA&s",
       type: vehicles.registrationDoc.type,
       dateOfExpiry: vehicles.registrationDoc.dateOfExpiry,
     },
     {
       id: vehicles.fitnessDoc._id,
-      imageUrl: vehicles.fitnessDoc.imageUrl,
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZzp5QcvoRMAhLZY16SLJRU2ms6iA586OLww&s",
       type: vehicles.fitnessDoc.type,
       dateOfExpiry: vehicles.fitnessDoc.dateOfExpiry,
     },
     {
       id: vehicles.routePermitDoc._id,
-      imageUrl: vehicles.routePermitDoc.imageUrl,
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrKVEKum8Zf6s1tLVDtEEDy3Apq0Cc3MmYCQ&s",
       type: vehicles.routePermitDoc.type,
       dateOfExpiry: vehicles.routePermitDoc.dateOfExpiry,
     },
@@ -92,7 +93,7 @@ const TransportDetails = () => {
     }
   };
 
-  const handleDocumentEdit = (id)=>{
+  const handleDocumentEdit = (id) => {
     navigate(`/home/editDocument/${id}`);
   }
 
@@ -102,22 +103,24 @@ const TransportDetails = () => {
       <div
         className={`bg-white rounded-lg drop-shadow-sm border-2 border-${color}`}
       >
-        <div className="h-1/2 flex relative">
-          <img src={document.imageUrl} alt="Document" className="z-0" />
-          <div className="absolute flex text-2xl lg:text-3xl p-6 border-2 border-white rounded-lg font-koulen text-white hover:text-gray-300 bg-black opacity-50 h-full w-full justify-center items-center z-20">
-            VIEW IMAGE
+        <div className="h-1/2 flex relative items-center justify-center">
+          <img src={document.imageUrl} alt="Document" className="z-10 h-48" />
+          <div className="absolute flex text-2xl lg:text-3xl rounded-lg font-koulen text-white hover:text-gray-300 bg-black opacity-50 h-full w-full justify-center items-center z-20">
+            <div className="z-30 border-2 p-2 rounded-lg">
+              VIEW IMAGE
+            </div>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mt-2 space-y-2 p-6">
           <h2 className="text-xl md:text-3xl font-semibold">{document.type}</h2>
-          <div className="flex gap-2">
-            <img src="/clock.svg" alt="clock" className="w-5" />
-            <p className="md:text-xl">{formatDate(document.dateOfExpiry)}</p>
+          <div className="flex gap-2 items-center">
+            <FcAlarmClock className="text-2xl" />
+            <p className="md:text-xl ">{formatDate(document.dateOfExpiry)}</p>
           </div>
           <p className={`md:text-xl text-${color}`}>
             {getStatus(document.dateOfExpiry)}
           </p>
-          <button onClick={() => handleDocumentEdit(document.id)} className="btn font-koulen bg-[#F3F3E6] border-black text-xl font-semibold ">
+          <button onClick={() => handleDocumentEdit(document.id)} className="btn font-koulen bg-[#F3F3E6] border-[#791B1B] text-xl text-[#672a2a] font-semibold ">
             UPDATE
           </button>
         </div>
@@ -131,7 +134,7 @@ const TransportDetails = () => {
         <img
           src={vehicle.imageUrl}
           alt="Transport Image"
-          className="md:w-1/2 rounded-lg"
+          className="md:w-1/2 h-72 rounded-lg"
         />
         <div className="space-y-7">
           <h3 className="text-3xl md:text-5xl font-semibold text-[#791B1B]">
