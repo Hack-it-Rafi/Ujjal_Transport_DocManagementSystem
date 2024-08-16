@@ -12,7 +12,16 @@ const addTransportValidationSchema = z.object({
         routePermitDoc: z.string().optional(),
     })
 });
+const updateTransportValidationSchema = z.object({
+    body: z.object({
+        titleNumber: z.string().optional(),
+        ownerName: z.string().optional(),
+        description: z.string().optional(),
+        imageUrl: z.string().optional(),
+    })
+});
 
 export const TransportValidation = {
-    addTransportValidationSchema
+    addTransportValidationSchema,
+    updateTransportValidationSchema
 }

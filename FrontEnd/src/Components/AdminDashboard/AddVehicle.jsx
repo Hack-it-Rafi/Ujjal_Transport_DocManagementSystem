@@ -7,61 +7,84 @@ const AddVehicle = () => {
 
   const handleAddVehicle = async (e) => {
     e.preventDefault();
-
+  
     const form = e.target;
-
+  
     const titleNumber = form.titleName.value;
     const ownerName = form.ownerName.value;
     const type = form.category.value;
     const imageUrl = form.vehicleImage.value;
     const description = form.description.value;
-
-    const taxDocImageUrl = form.taxImage.value;
+  
+    const taxDocImageUrl = form.taxImage.files[0];
     const taxDocExpiry = form.taxDate.value;
-
-    const registrationDocImageUrl = form.registrationImage.value;
+  
+    const registrationDocImageUrl = form.registrationImage.files[0];
     const registrationDocExpiry = form.registrationDate.value;
-
-    const fitnessDocImage = form.fitnessImage.value;
+  
+    const fitnessDocImage = form.fitnessImage.files[0];
     const fitnessDocExpiry = form.fitnessDate.value;
-
-    const routePermitImage = form.routePermitImage.value;
+  
+    const routePermitImage = form.routePermitImage.files[0];
     const routePermitExpiry = form.routePermitDate.value;
-
+  
+    // Create FormData object for each document
+    const createFormData = (file, type, dateOfExpiry) => {
+      const data = new FormData();
+      data.append('image', file);
+      data.append('type', type);
+      data.append('vehicle', titleNumber);
+      data.append('dateOfExpiry', dateOfExpiry);
+      return data;
+    };
+  
     try {
+      // Post each document
       const [taxDocRes, registrationDocRes, fitnessDocRes, routePermitDocRes] =
         await Promise.all([
-          axios.post("http://localhost:8000/api/v1/document/add-document", {
-            imageUrl: taxDocImageUrl,
-            type: "Tax",
-            vehicle: titleNumber,
-            dateOfExpiry: taxDocExpiry,
-          }),
-          axios.post("http://localhost:8000/api/v1/document/add-document", {
-            imageUrl: registrationDocImageUrl,
-            type: "Registration",
-            vehicle: titleNumber,
-            dateOfExpiry: registrationDocExpiry,
-          }),
-          axios.post("http://localhost:8000/api/v1/document/add-document", {
-            imageUrl: fitnessDocImage,
-            type: "Fitness",
-            vehicle: titleNumber,
-            dateOfExpiry: fitnessDocExpiry,
-          }),
-          axios.post("http://localhost:8000/api/v1/document/add-document", {
-            imageUrl: routePermitImage,
-            type: "RoutePermit",
-            vehicle: titleNumber,
-            dateOfExpiry: routePermitExpiry,
-          }),
+          axios.post(
+            "http://localhost:8000/api/v1/document/add-document",
+            createFormData(taxDocImageUrl, "Tax", taxDocExpiry),
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          ),
+          axios.post(
+            "http://localhost:8000/api/v1/document/add-document",
+            createFormData(registrationDocImageUrl, "Registration", registrationDocExpiry),
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          ),
+          axios.post(
+            "http://localhost:8000/api/v1/document/add-document",
+            createFormData(fitnessDocImage, "Fitness", fitnessDocExpiry),
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          ),
+          axios.post(
+            "http://localhost:8000/api/v1/document/add-document",
+            createFormData(routePermitImage, "RoutePermit", routePermitExpiry),
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          ),
         ]);
 
       const taxDocId = taxDocRes.data.data._id;
       const registrationDocId = registrationDocRes.data.data._id;
       const fitnessDocId = fitnessDocRes.data.data._id;
       const routePermitDocId = routePermitDocRes.data.data._id;
-
+  
       const vehicle = {
         titleNumber,
         ownerName,
@@ -73,21 +96,19 @@ const AddVehicle = () => {
         registrationDoc: registrationDocId,
         routePermitDoc: routePermitDocId,
       };
-
+  
       console.log(vehicle);
-
-      axios
-        .post("http://localhost:8000/api/v1/transport/add-transport", vehicle)
-        .then((res) => {
-          console.log(res.data.data);
-          Swal.fire({
-            title: "Vehicle add Successful!",
-            text: "Enjoy Exploring!",
-            icon: "success",
-            confirmButtonText: "Continue",
-          });
-          navigate("/home/transportList");
-        });
+  
+      await axios.post("http://localhost:8000/api/v1/transport/add-transport", vehicle);
+  
+      Swal.fire({
+        title: "Vehicle added successfully!",
+        text: "Enjoy Exploring!",
+        icon: "success",
+        confirmButtonText: "Continue",
+      });
+  
+      navigate("/home/transportList");
     } catch (error) {
       console.error("Error adding documents or vehicle:", error);
     }
@@ -159,12 +180,12 @@ const AddVehicle = () => {
           <div className="flex gap-4">
             <div className="form-control w-full">
               <label className="label">
-                <span className="label-text">Description</span>
+                <span className="label-text">Notes</span>
               </label>
               <textarea
                 type="text"
                 name="description"
-                placeholder="description"
+                placeholder="note"
                 className="input input-bordered"
                 required
               />
@@ -185,7 +206,7 @@ const AddVehicle = () => {
                   <span className="label-text">Tax Image</span>
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   required
                   placeholder="Type here"
                   name="taxImage"
@@ -214,7 +235,7 @@ const AddVehicle = () => {
                   <span className="label-text">Registration Image</span>
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   required
                   placeholder="Type here"
                   name="registrationImage"
@@ -243,7 +264,7 @@ const AddVehicle = () => {
                   <span className="label-text">Fitness Image</span>
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   required
                   placeholder="Type here"
                   name="fitnessImage"
@@ -272,7 +293,7 @@ const AddVehicle = () => {
                   <span className="label-text">Route Permit Image</span>
                 </label>
                 <input
-                  type="text"
+                  type="file"
                   required
                   placeholder="Type here"
                   name="routePermitImage"

@@ -13,6 +13,8 @@ router.post(
 
 router.get('/:id', TransportControllers.getSingleTransport);
 
+router.patch('/:id', validateRequest(TransportValidation.updateTransportValidationSchema), TransportControllers.updateTransport);
+
 router.get('/', TransportControllers.getAllTransports);
 
 export const TransportRoutes = router;

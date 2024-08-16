@@ -6,7 +6,6 @@ const addEditRequestSchema = z.object({
         docId:z.string(),
         editorEmail: z.string(),
         vehicleName: z.string(),
-        imageUrl: z.string(),
         type: z.enum([...Types] as [string, ...string[]]),
         dateOfExpiry: z.string()
     })

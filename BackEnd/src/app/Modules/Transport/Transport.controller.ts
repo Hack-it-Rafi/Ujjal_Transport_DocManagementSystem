@@ -39,11 +39,11 @@ const getSingleTransport = catchAsync(async (req, res) => {
 });
 
 const updateTransport = catchAsync(async (req, res) => {
-  const { studentId } = req.params;
-  const { student } = req.body;
+  const { id } = req.params;
+  const transport  = req.body;
   const result = await TransportServices.updateTransportIntoDB(
-    studentId,
-    student,
+    id,
+    transport,
   );
 
   sendResponse(res, {

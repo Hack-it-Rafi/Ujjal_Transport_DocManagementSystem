@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Authentication/AuthProvider";
 import useAdmin from "../Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     logOut().then().catch();
@@ -22,10 +23,14 @@ const Navbar = () => {
     </>
   );
 
+  const handleRedirect = ()=>{
+    navigate("/");
+  }
+
   return (
     <div className="bg-[#1D1912] h-20">
       <div className="h-full flex items-center justify-between max-w-7xl mx-auto">
-        <img
+        <img onClick={handleRedirect}
           className="w-44"
           src="/ujjal-flour-high-resolution-logo-transparent.png"
           alt="logo"
@@ -38,20 +43,24 @@ const Navbar = () => {
             </div>
           )}
           {user ? (
-            <>
+            <div className="">
+            {/* <div className="text-white">{user.email}</div> */}
               <button
                 onClick={handleLogOut}
                 className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white"
               >
                 Sign Out
               </button>
-            </>
+              <p className="text-white">{user.email}</p>
+            </div>
           ) : (
-            <Link to="/login">
+            <div>
+              <Link to="/login">
               <button className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white">
                 Log In
               </button>
             </Link>
+            </div>
           )}
         </div>
       </div>

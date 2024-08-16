@@ -16,6 +16,7 @@ import PrivateRoute from "./Components/Authentication/PrivateRoute";
 import AdminRoute from "./Components/Authentication/AdminRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EditDocument from "./Components/General/EditDocument";
+import AddOtherDocument from "./Components/AdminDashboard/AddOtherDocument";
 
 const queryClient = new QueryClient();
 
@@ -92,6 +93,16 @@ const router = createBrowserRouter([
               <PrivateRoute>
                 <AdminRoute>
                   <UserList></UserList>
+                </AdminRoute>
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "addOtherDocument",
+            element: (
+              <PrivateRoute>
+                <AdminRoute>
+                  <AddOtherDocument></AddOtherDocument>
                 </AdminRoute>
               </PrivateRoute>
             ),

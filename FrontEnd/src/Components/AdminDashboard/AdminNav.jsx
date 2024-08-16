@@ -10,6 +10,9 @@ const AdminNav = () => {
         <Link to="/home/adminDashboard/addVehicle">Add Vehicle</Link>
       </li>
       <li className="mr-1">
+        <Link to="/home/adminDashboard/addOtherDocument">Add Other Document</Link>
+      </li>
+      <li className="mr-1">
         <Link to="/home/adminDashboard/users">Users</Link>
       </li>
     </>

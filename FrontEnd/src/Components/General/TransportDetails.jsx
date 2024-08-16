@@ -1,11 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FcAlarmClock } from "react-icons/fc";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
+import useAdmin from "../Hooks/useAdmin";
+import Swal from "sweetalert2";
 
 const TransportDetails = () => {
-  const [vehicles, setVehicle] = useState();
+  const [vehicles, setVehicle] = useState(null);
+  const [taxDocImage, setTaxDocImage] = useState(null);
+  const [registrationDocImage, setRegistrationDocImage] = useState(null);
+  const [fitnessDocImage, setFitnessDocImage] = useState(null);
+  const [routePermitDocImage, setRoutePermitDocImage] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [isAdmin] = useAdmin();
 
   useEffect(() => {
     axios
@@ -16,48 +25,79 @@ const TransportDetails = () => {
       .catch((err) => {
         console.error("Failed to fetch vehicle data:", err);
       });
-  }, [id]); // Use useEffect to avoid repeated API calls
+  }, [id]);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const fetchImage = async (docId) => {
+          const response = await axios.get(
+            `http://localhost:8000/api/v1/document/file/${docId}`,
+            { responseType: "blob" }
+          );
+          return URL.createObjectURL(response.data);
+        };
+
+        const taxImage = vehicles?.taxDoc?._id
+          ? await fetchImage(vehicles.taxDoc._id)
+          : null;
+        const registrationImage = vehicles?.registrationDoc?._id
+          ? await fetchImage(vehicles.registrationDoc._id)
+          : null;
+        const fitnessImage = vehicles?.fitnessDoc?._id
+          ? await fetchImage(vehicles.fitnessDoc._id)
+          : null;
+        const routePermitImage = vehicles?.routePermitDoc?._id
+          ? await fetchImage(vehicles.routePermitDoc._id)
+          : null;
+
+        setTaxDocImage(taxImage);
+        setRegistrationDocImage(registrationImage);
+        setFitnessDocImage(fitnessImage);
+        setRoutePermitDocImage(routePermitImage);
+      } catch (error) {
+        console.error("Error fetching document or image:", error);
+      }
+    };
+
+    if (vehicles) {
+      fetchDocuments();
+    }
+  }, [vehicles]);
 
   if (!vehicles) {
-    // Render loading state while data is being fetched
     return <div>Loading...</div>;
   }
 
-  const vehicle = {
-    imageUrl: vehicles.imageUrl,
-    name: vehicles.titleNumber,
-    owner: vehicles.ownerName,
-    description: vehicles.description,
-  };
-
   const documents = [
     {
-      id: vehicles.taxDoc._id,
-      imageUrl: vehicles.taxDoc.imageUrl,
-      type: vehicles.taxDoc.type,
-      dateOfExpiry: vehicles.taxDoc.dateOfExpiry,
+      id: vehicles?.taxDoc?._id,
+      imageUrl: taxDocImage,
+      type: vehicles?.taxDoc?.type,
+      dateOfExpiry: vehicles?.taxDoc?.dateOfExpiry,
     },
     {
-      id: vehicles.registrationDoc._id,
-      imageUrl: vehicles.registrationDoc.imageUrl,
-      type: vehicles.registrationDoc.type,
-      dateOfExpiry: vehicles.registrationDoc.dateOfExpiry,
+      id: vehicles?.registrationDoc?._id,
+      imageUrl: registrationDocImage,
+      type: vehicles?.registrationDoc?.type,
+      dateOfExpiry: vehicles?.registrationDoc?.dateOfExpiry,
     },
     {
-      id: vehicles.fitnessDoc._id,
-      imageUrl: vehicles.fitnessDoc.imageUrl,
-      type: vehicles.fitnessDoc.type,
-      dateOfExpiry: vehicles.fitnessDoc.dateOfExpiry,
+      id: vehicles?.fitnessDoc?._id,
+      imageUrl: fitnessDocImage,
+      type: vehicles?.fitnessDoc?.type,
+      dateOfExpiry: vehicles?.fitnessDoc?.dateOfExpiry,
     },
     {
-      id: vehicles.routePermitDoc._id,
-      imageUrl: vehicles.routePermitDoc.imageUrl,
-      type: vehicles.routePermitDoc.type,
-      dateOfExpiry: vehicles.routePermitDoc.dateOfExpiry,
+      id: vehicles?.routePermitDoc?._id,
+      imageUrl: routePermitDocImage,
+      type: vehicles?.routePermitDoc?.type,
+      dateOfExpiry: vehicles?.routePermitDoc?.dateOfExpiry,
     },
   ];
 
   const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
     const date = new Date(dateString);
     return date.toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -67,6 +107,7 @@ const TransportDetails = () => {
   };
 
   const getStatus = (dateString) => {
+    if (!dateString) return "Unknown";
     const currentDate = new Date();
     const expiryDate = new Date(dateString);
     const timeDifference = expiryDate - currentDate;
@@ -84,40 +125,76 @@ const TransportDetails = () => {
   const getColor = (dateString) => {
     const status = getStatus(dateString);
     if (status === "On Time") {
-      return "green-500";
+      return "border-green-500 text-green-500";
     } else if (status === "About to Expire") {
-      return "yellow-600";
+      return "border-yellow-600 text-yellow-600";
     } else {
-      return "red-600";
+      return "border-red-600 text-red-600";
     }
   };
 
-  const handleDocumentEdit = (id)=>{
-    navigate(`/home/editDocument/${id}`);
-  }
+  const handleDocumentEdit = (did) => {
+    navigate(`/home/editDocument/${did}`);
+  };
+
+  const handleView = async (Url) => {
+    if (Url) {
+      Swal.fire({
+        html: `<img src="${Url}" alt="Document Image" className="w-full">`,
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: "Failed to fetch image.",
+        icon: "error",
+      });
+    }
+  };
 
   const DocumentCard = ({ document }) => {
-    const color = getColor(document.dateOfExpiry);
+    const colorClass = getColor(document.dateOfExpiry);
     return (
       <div
-        className={`bg-white rounded-lg drop-shadow-sm border-2 border-${color}`}
+        className={`bg-white rounded-lg drop-shadow-sm border-2 ${colorClass}`}
       >
-        <div className="h-1/2 flex relative">
-          <img src={document.imageUrl} alt="Document" className="z-0" />
-          <div className="absolute flex text-2xl lg:text-3xl p-6 border-2 border-white rounded-lg font-koulen text-white hover:text-gray-300 bg-black opacity-50 h-full w-full justify-center items-center z-20">
-            VIEW IMAGE
-          </div>
+        <div className="h-1/2 flex w-full justify-center items-center py-5">
+          <button
+            onClick={() => handleView(document.imageUrl)}
+            className="btn bg-[#293129a5] text-white"
+          >
+            View Document
+          </button>
         </div>
+        {/* <div className="h-1/2 flex relative">
+          <img
+            src="/document-question-answering-input.png"
+            alt="Document"
+            className="z-0 h-1/2"
+          />
+          <div className="absolute flex text-2xl lg:text-3xl p-6 border-2 border-white rounded-lg font-koulen text-white hover:text-gray-300 bg-black opacity-50 h-full w-full justify-center items-center z-20">
+            <button
+              onClick={() => handleView(document.imageUrl)}
+              className="btn  text-white opacity-100"
+            >
+              View Document
+            </button>
+          </div>
+        </div> */}
         <div className="flex flex-col justify-center items-center mt-2 space-y-2 p-6">
-          <h2 className="text-xl md:text-3xl font-semibold">{document.type}</h2>
-          <div className="flex gap-2">
-            <img src="/clock.svg" alt="clock" className="w-5" />
+          <h2 className="text-xl text-black md:text-3xl font-semibold">
+            {document.type}
+          </h2>
+          <div className="flex items-center gap-2">
+            <FcAlarmClock />
             <p className="md:text-xl">{formatDate(document.dateOfExpiry)}</p>
           </div>
-          <p className={`md:text-xl text-${color}`}>
+          <p className={`md:text-xl ${colorClass}`}>
             {getStatus(document.dateOfExpiry)}
           </p>
-          <button onClick={() => handleDocumentEdit(document.id)} className="btn font-koulen bg-[#F3F3E6] border-black text-xl font-semibold ">
+          <button
+            onClick={() => handleDocumentEdit(document.id)}
+            className="btn font-koulen bg-[#F3F3E6] border-black text-xl font-bold"
+          >
             UPDATE
           </button>
         </div>
@@ -125,31 +202,130 @@ const TransportDetails = () => {
     );
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const handleUpdateVehicle = () => {
+    let titleNumberInput,
+      ownerNameInput,
+      typeInput,
+      descriptionInput,
+      imageUrlInput;
+
+    Swal.fire({
+      title: "Update vehicle",
+      html: `
+        <input type="text" id="titleNumber" class="swal2-input" placeholder="titleNumber">
+        <input type="ownerName" id="ownerName" class="swal2-input" placeholder="ownerName">
+        <input type="text" id="type" class="swal2-input" placeholder="type">
+        <input type="description" id="description" class="swal2-input" placeholder="description(Default:Ujjal123)">
+        <input type="imageUrl" id="imageUrl" class="swal2-input" placeholder="imageUrl">
+        
+      `,
+      confirmButtonText: "Update vehicle",
+      focusConfirm: false,
+      didOpen: () => {
+        const popup = Swal.getPopup();
+        titleNumberInput = popup.querySelector("#titleNumber");
+        ownerNameInput = popup.querySelector("#ownerName");
+        typeInput = popup.querySelector("#type");
+        descriptionInput = popup.querySelector("#description");
+        imageUrlInput = popup.querySelector("#imageUrl");
+      },
+      preConfirm: () => {
+        const titleNumber = titleNumberInput.value
+          ? titleNumberInput.value
+          : vehicles.titleNumber;
+        const ownerName = ownerNameInput.value
+          ? ownerNameInput.value
+          : vehicles.ownerName;
+        const type = typeInput.value ? typeInput.value : vehicles.type;
+        const description = descriptionInput.value
+          ? descriptionInput.value
+          : vehicles.description;
+
+        const imageUrl = imageUrlInput.value
+          ? imageUrlInput.value
+          : vehicles.imageUrl;
+
+        // if (!titleNumber || !ownerName || !type) {
+        //   Swal.showValidationMessage(`Please fill out all required fields`);
+        //   return false;
+        // }
+
+        return { titleNumber, ownerName, type, description, imageUrl };
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const { titleNumber, ownerName, type, description, imageUrl } =
+          result.value;
+
+        const transport = {
+          titleNumber,
+          ownerName,
+          type,
+          description,
+          imageUrl,
+        };
+
+        axios
+          .patch(`http://localhost:8000/api/v1/transport/${id}`, transport)
+          .then(() => {
+            Swal.fire("Success!", "Vehicle has been updated.", "success").then(
+              () => {
+                window.location.reload();
+              }
+            );
+          })
+          .catch((error) => {
+            Swal.fire("Error!", "There was an error in local.", "error");
+            console.error(error);
+          });
+      }
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 lg:px-0 mt-20 font-frank">
-      <div className="flex flex-col md:flex-row gap-8 items-center">
+      <div>
+        <button onClick={handleBack}>
+          <IoArrowBackCircleOutline size={50} />
+        </button>
+      </div>
+      <div className="flex w-full flex-col md:flex-row gap-8 items-center">
         <img
-          src={vehicle.imageUrl}
+          src={vehicles.imageUrl}
           alt="Transport Image"
           className="md:w-1/2 rounded-lg"
         />
-        <div className="space-y-7">
+        <div className="space-y-7 w-1/2">
           <h3 className="text-3xl md:text-5xl font-semibold text-[#791B1B]">
-            {vehicle.name}
+            {vehicles.titleNumber}
           </h3>
           <h2 className="flex gap-2 text-xl md:text-3xl">
             <div className="font-semibold">Owner:</div>
-            <div>{vehicle.owner}</div>
+            <div>{vehicles.ownerName}</div>
           </h2>
-          <h2 className="">
-            <div className="text-xl md:text-3xl font-semibold">
-              Description:
-            </div>
-            <div className="max-w-2xl text-justify text-lg md:text-xl">
-              {vehicle.description}
+          <h2 className="w-full">
+            <div className="text-xl md:text-3xl font-semibold">Notes:</div>
+            <div className="max-w-2xl text-justify bg-white w-full p-3 pb-20 mt-2 rounded-lg ">
+              {vehicles.description}
             </div>
           </h2>
         </div>
+      </div>
+      <div className="w-full py-10">
+        {isAdmin == "admin" && (
+          <div className="flex justify-center">
+            <button
+              onClick={handleUpdateVehicle}
+              className="btn bg-[#0ba91ba5] text-white"
+            >
+              Update Vehicle
+            </button>
+          </div>
+        )}
       </div>
       <div className="h-0.5 w-auto mt-8 bg-black"></div>
       <div className="flex flex-col justify-center items-center space-y-2">

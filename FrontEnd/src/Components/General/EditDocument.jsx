@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../Authentication/AuthProvider";
 import Swal from "sweetalert2";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 const EditDocument = () => {
   const { id } = useParams();
   const [document, setDocument] = useState(null);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -27,26 +29,42 @@ const EditDocument = () => {
 
     const docId = id;
     const editorEmail = user.email;
-    const vehicleName = document.vehicle?document.vehicle:"Vehicle Nai";
-    const imageUrl = form.image.value;
+    const vehicleName = document.vehicle ? document.vehicle : "Vehicle Nai";
+    const imageUrl = form.image.files[0];
     const type = document.type;
     const dateOfExpiry = form.date.value;
 
-    const editData = {
-      docId,
-      editorEmail,
-      vehicleName,
-      imageUrl,
-      type,
-      dateOfExpiry,
-    };
+    // const editData = {
+    //   docId,
+    //   editorEmail,
+    //   vehicleName,
+    //   imageUrl,
+    //   type,
+    //   dateOfExpiry,
+    // };
 
-    console.log(editData);
+    // console.log(editData);
+
+    const createFormData = () => {
+      const data = new FormData();
+      data.append("docId", docId);
+      data.append("editorEmail", editorEmail);
+      data.append("vehicleName", vehicleName);
+      data.append("image", imageUrl);
+      data.append("type", type);
+      data.append("dateOfExpiry", dateOfExpiry);
+      return data;
+    };
 
     axios
       .post(
         "http://localhost:8000/api/v1/editRequest/add-editRequest",
-        editData
+        createFormData(),
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       )
       .then((res) => {
         console.log(res.data.data);
@@ -56,6 +74,7 @@ const EditDocument = () => {
           icon: "success",
           confirmButtonText: "Continue",
         });
+        navigate(-1);
       })
       .catch((error) => {
         console.error("Error submitting edit request:", error);
@@ -67,8 +86,19 @@ const EditDocument = () => {
         });
       });
   };
+
+  const handleBack = ()=>{
+    navigate(-1);
+  }
   return (
-    <div>
+    <div className="container mx-auto px-4 lg:px-0 mt-20 font-frank">
+      <div>
+      <div>
+      <button onClick={handleBack}>
+      <IoArrowBackCircleOutline size={50} />
+      </button>
+      </div>
+      </div>
       <form onSubmit={handleUpdateDocument} className="px-5 md:px-20 pb-20">
         <div className="border-[3px] p-4">
           <div className="text-center pt-3 pb-3">
@@ -79,7 +109,7 @@ const EditDocument = () => {
               <span className="label-text">{document?.type} Image</span>
             </label>
             <input
-              type="text"
+              type="file"
               required
               placeholder="Type here"
               name="image"

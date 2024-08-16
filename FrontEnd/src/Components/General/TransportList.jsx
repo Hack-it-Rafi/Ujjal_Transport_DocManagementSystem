@@ -13,7 +13,7 @@ const calculateRemainingDays = (expiryDate) => {
   const expiry = new Date(expiryDate);
   const timeDiff = expiry - today;
   const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
-  return daysDiff > 0 ? daysDiff : 0; // If the date has passed, return 0
+  return daysDiff; // If the date has passed, return 0
 };
 
 const calculateTotalRemainingDays = (vehicle) => {

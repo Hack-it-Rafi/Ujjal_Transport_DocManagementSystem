@@ -48,10 +48,21 @@ const Login = () => {
       });
   };
 
+  const handleRedirect = ()=>{
+    navigate("/");
+  }
+
   return (
-    <div>
-      <div className=""></div>
-      <div className="hero min-h-screen">
+    <div className=" min-h-screen">
+      <div className="w-full flex justify-center my-20">
+        <img onClick={handleRedirect}
+          className="w-80"
+          src="/ujjal-flour-high-resolution-logo-transparent.png"
+          alt="logo"
+        />
+        </div>
+      <div className="hero">
+        
         <div className="hero-content flex-col lg:flex-row">
           <div className="text-center flex justify-center w-1/2 lg:text-left">
             <img className="w-2/3" src={logo} alt="" />
