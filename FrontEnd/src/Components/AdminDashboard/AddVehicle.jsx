@@ -7,41 +7,42 @@ const AddVehicle = () => {
 
   const handleAddVehicle = async (e) => {
     e.preventDefault();
-  
+
     const form = e.target;
-  
+
     const titleNumber = form.titleName.value;
     const ownerName = form.ownerName.value;
     const type = form.category.value;
     const imageUrl = form.vehicleImage.value;
     const description = form.description.value;
-  
+
     const taxDocImageUrl = form.taxImage.files[0];
     const taxDocExpiry = form.taxDate.value;
-  
+
     const registrationDocImageUrl = form.registrationImage.files[0];
     const registrationDocExpiry = form.registrationDate.value;
-  
+
     const fitnessDocImage = form.fitnessImage.files[0];
     const fitnessDocExpiry = form.fitnessDate.value;
-  
+
     const routePermitImage = form.routePermitImage.files[0];
     const routePermitExpiry = form.routePermitDate.value;
-  
-    // Create FormData object for each document
+
     const createFormData = (file, type, dateOfExpiry) => {
       const data = new FormData();
-      data.append('image', file);
-      data.append('type', type);
-      data.append('vehicle', titleNumber);
-      data.append('dateOfExpiry', dateOfExpiry);
+      data.append("image", file);
+      data.append("type", type);
+      data.append("vehicle", titleNumber);
+      data.append("dateOfExpiry", dateOfExpiry);
       return data;
     };
-  
+
     try {
-      // Post each document
-      const [taxDocRes, registrationDocRes, fitnessDocRes, routePermitDocRes] =
-        await Promise.all([
+      const promises = [];
+
+      // Conditionally post each document only if input is provided
+      if (taxDocImageUrl && taxDocExpiry) {
+        promises.push(
           axios.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(taxDocImageUrl, "Tax", taxDocExpiry),
@@ -50,7 +51,12 @@ const AddVehicle = () => {
                 "Content-Type": "multipart/form-data",
               },
             }
-          ),
+          )
+        );
+      }
+
+      if (registrationDocImageUrl && registrationDocExpiry) {
+        promises.push(
           axios.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(registrationDocImageUrl, "Registration", registrationDocExpiry),
@@ -59,7 +65,12 @@ const AddVehicle = () => {
                 "Content-Type": "multipart/form-data",
               },
             }
-          ),
+          )
+        );
+      }
+
+      if (fitnessDocImage && fitnessDocExpiry) {
+        promises.push(
           axios.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(fitnessDocImage, "Fitness", fitnessDocExpiry),
@@ -68,7 +79,12 @@ const AddVehicle = () => {
                 "Content-Type": "multipart/form-data",
               },
             }
-          ),
+          )
+        );
+      }
+
+      if (routePermitImage && routePermitExpiry) {
+        promises.push(
           axios.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(routePermitImage, "RoutePermit", routePermitExpiry),
@@ -77,42 +93,43 @@ const AddVehicle = () => {
                 "Content-Type": "multipart/form-data",
               },
             }
-          ),
-        ]);
+          )
+        );
+      }
 
-      const taxDocId = taxDocRes.data.data._id;
-      const registrationDocId = registrationDocRes.data.data._id;
-      const fitnessDocId = fitnessDocRes.data.data._id;
-      const routePermitDocId = routePermitDocRes.data.data._id;
-  
+      // Wait for all document creation requests to complete
+      const results = await Promise.all(promises);
+
+      // Get document IDs if available
+      const documentIds = results.map((res) => res.data.data._id);
+
       const vehicle = {
         titleNumber,
         ownerName,
         type,
         description,
         imageUrl,
-        taxDoc: taxDocId,
-        fitnessDoc: fitnessDocId,
-        registrationDoc: registrationDocId,
-        routePermitDoc: routePermitDocId,
+        taxDoc: documentIds[0] || null,
+        fitnessDoc: documentIds[2] || null,
+        registrationDoc: documentIds[1] || null,
+        routePermitDoc: documentIds[3] || null,
       };
-  
-      console.log(vehicle);
-  
+
       await axios.post("http://localhost:8000/api/v1/transport/add-transport", vehicle);
-  
+
       Swal.fire({
         title: "Vehicle added successfully!",
         text: "Enjoy Exploring!",
         icon: "success",
         confirmButtonText: "Continue",
       });
-  
+
       navigate("/home/transportList");
     } catch (error) {
       console.error("Error adding documents or vehicle:", error);
     }
   };
+
   return (
     <div className="pb-10">
       <div className="card bg-base-100 w-full mx-auto max-w-7xl shrink-0 shadow-2xl">
@@ -123,7 +140,7 @@ const AddVehicle = () => {
           <div className="flex gap-4">
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text">Title Name</span>
+                <span className="label-text font-semibold">Title Name</span>
               </label>
               <input
                 type="text"
@@ -135,7 +152,7 @@ const AddVehicle = () => {
             </div>
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text">Owner Name</span>
+                <span className="label-text font-semibold">Owner Name</span>
               </label>
               <input
                 type="text"
@@ -149,7 +166,7 @@ const AddVehicle = () => {
           <div className="flex gap-4">
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text">Type</span>
+                <span className="label-text font-semibold">Type</span>
               </label>
               <select
                 required
@@ -166,7 +183,7 @@ const AddVehicle = () => {
             </div>
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="label-text">Image URL</span>
+                <span className="label-text font-semibold">Image URL</span>
               </label>
               <input
                 type="text"
@@ -180,7 +197,7 @@ const AddVehicle = () => {
           <div className="flex gap-4">
             <div className="form-control w-full">
               <label className="label">
-                <span className="label-text">Notes</span>
+                <span className="label-text font-semibold">Notes</span>
               </label>
               <textarea
                 type="text"
@@ -203,24 +220,20 @@ const AddVehicle = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Tax Image</span>
+                  <span className="label-text font-semibold">Tax Image</span>
                 </label>
                 <input
                   type="file"
-                  required
-                  placeholder="Type here"
                   name="taxImage"
                   className="input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Expiry Date</span>
+                  <span className="label-text font-semibold">Expiry Date</span>
                 </label>
                 <input
                   type="date"
-                  required
-                  placeholder="Type here"
                   name="taxDate"
                   className="input input-bordered w-full"
                 />
@@ -232,24 +245,20 @@ const AddVehicle = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Registration Image</span>
+                  <span className="label-text font-semibold">Registration Image</span>
                 </label>
                 <input
                   type="file"
-                  required
-                  placeholder="Type here"
                   name="registrationImage"
                   className="input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Expiry Date</span>
+                  <span className="label-text font-semibold">Expiry Date</span>
                 </label>
                 <input
                   type="date"
-                  required
-                  placeholder="Type here"
                   name="registrationDate"
                   className="input input-bordered w-full"
                 />
@@ -261,24 +270,20 @@ const AddVehicle = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Fitness Image</span>
+                  <span className="label-text font-semibold">Fitness Image</span>
                 </label>
                 <input
                   type="file"
-                  required
-                  placeholder="Type here"
                   name="fitnessImage"
                   className="input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Expiry Date</span>
+                  <span className="label-text font-semibold">Expiry Date</span>
                 </label>
                 <input
                   type="date"
-                  required
-                  placeholder="Type here"
                   name="fitnessDate"
                   className="input input-bordered w-full"
                 />
@@ -286,36 +291,35 @@ const AddVehicle = () => {
             </div>
             <div className="border-[3px] p-4">
               <div className="text-center pt-3 pb-3">
-                <h2 className="text-xl font-medium ">Route Permit</h2>
+                <h2 className="text-xl font-medium ">Route Permit Documents</h2>
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Route Permit Image</span>
+                  <span className="label-text font-semibold">Route Permit Image</span>
                 </label>
                 <input
                   type="file"
-                  required
-                  placeholder="Type here"
                   name="routePermitImage"
                   className="input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Expiry Date</span>
+                  <span className="label-text font-semibold">Expiry Date</span>
                 </label>
                 <input
                   type="date"
-                  required
-                  placeholder="Type here"
                   name="routePermitDate"
                   className="input input-bordered w-full"
                 />
               </div>
             </div>
           </div>
-          <div className="form-control my-6">
-            <button className="btn bg-[#FFD576]">Add vehicle</button>
+
+          <div className="form-control mt-6 pb-10">
+            <button className="btn btn-primary text-white text-xl">
+              Add Vehicle
+            </button>
           </div>
         </form>
       </div>

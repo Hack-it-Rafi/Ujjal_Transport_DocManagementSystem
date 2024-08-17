@@ -96,6 +96,8 @@ const TransportDetails = () => {
     },
   ];
 
+  const validDocuments = documents.filter((document) => document.id);
+
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     const date = new Date(dateString);
@@ -165,21 +167,6 @@ const TransportDetails = () => {
             View Document
           </button>
         </div>
-        {/* <div className="h-1/2 flex relative">
-          <img
-            src="/document-question-answering-input.png"
-            alt="Document"
-            className="z-0 h-1/2"
-          />
-          <div className="absolute flex text-2xl lg:text-3xl p-6 border-2 border-white rounded-lg font-koulen text-white hover:text-gray-300 bg-black opacity-50 h-full w-full justify-center items-center z-20">
-            <button
-              onClick={() => handleView(document.imageUrl)}
-              className="btn  text-white opacity-100"
-            >
-              View Document
-            </button>
-          </div>
-        </div> */}
         <div className="flex flex-col justify-center items-center mt-2 space-y-2 p-6">
           <h2 className="text-xl text-black md:text-3xl font-semibold">
             {document.type}
@@ -297,7 +284,7 @@ const TransportDetails = () => {
         <img
           src={vehicles.imageUrl}
           alt="Transport Image"
-          className="md:w-1/2 rounded-lg"
+          className="md:w-1/2 rounded-lg px-20"
         />
         <div className="space-y-7 w-1/2">
           <h3 className="text-3xl md:text-5xl font-semibold text-[#791B1B]">
@@ -335,7 +322,7 @@ const TransportDetails = () => {
         <div className="h-0.5 w-28 bg-gray-400"></div>
       </div>
       <div className="grid grid-cols-1 py-10 justify-center items-center sm:grid-cols-2 gap-x-12 gap-y-8 lg:px-44">
-        {documents.map((document, index) => (
+        {validDocuments.map((document, index) => (
           <DocumentCard key={index} document={document} />
         ))}
       </div>

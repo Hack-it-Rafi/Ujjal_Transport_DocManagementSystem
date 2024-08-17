@@ -6,10 +6,10 @@ const addTransportValidationSchema = z.object({
         ownerName: z.string(),
         description: z.string(),
         imageUrl: z.string(),
-        taxDoc: z.string().optional(),
-        fitnessDoc: z.string().optional(),
-        registrationDoc: z.string(),
-        routePermitDoc: z.string().optional(),
+        taxDoc: z.string().nullable().optional(),
+        fitnessDoc: z.string().nullable().optional(),
+        registrationDoc: z.string().nullable().optional(),
+        routePermitDoc: z.string().nullable().optional(),
     })
 });
 const updateTransportValidationSchema = z.object({

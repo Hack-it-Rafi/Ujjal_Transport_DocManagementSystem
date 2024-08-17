@@ -4,6 +4,9 @@ import { Types } from './Document.constant';
 
 const documentSchema = new Schema<TDocument>(
   {
+    name:{
+      type: String,
+    },
     imageUrl: {
       type: String,
       required: true,
@@ -15,7 +18,6 @@ const documentSchema = new Schema<TDocument>(
     },
     vehicle:{
       type: String,
-      required: true,
     },
     dateOfExpiry: {
       type: Date,
