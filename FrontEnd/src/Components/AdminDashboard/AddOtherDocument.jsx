@@ -71,9 +71,9 @@ const AddOtherDocument = () => {
         </div>
         <form onSubmit={handleAddOtherDocument} className="px-10">
           <div className="flex justify-center gap-4">
-            <div className="border-[3px] p-4">
+            <div className="border-[3px] border-gray-300 rounded-lg p-4">
               <div className="text-center pt-3 pb-3">
-                <h2 className="text-xl font-medium ">Other Document</h2>
+                <h2 className="text-xl font-semibold ">Other Document</h2>
               </div>
               <div className="form-control w-full">
                 <label className="label">
@@ -110,8 +110,8 @@ const AddOtherDocument = () => {
                 />
               </div>
               <div className="form-control mt-6 pb-10">
-                <button className="btn btn-primary text-white text-xl">
-                  Add Vehicle
+                <button className="btn btn-primary bg-amber-400 border-0 text-white text-xl">
+                  Add Document
                 </button>
               </div>
             </div>
