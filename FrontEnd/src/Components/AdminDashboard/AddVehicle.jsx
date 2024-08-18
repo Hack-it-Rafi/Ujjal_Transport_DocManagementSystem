@@ -132,7 +132,7 @@ const AddVehicle = () => {
 
   return (
     <div className="pb-10">
-      <div className="card bg-base-100 w-full mx-auto max-w-7xl shrink-0 shadow-2xl">
+      <div className="card bg-gray-50 w-full mx-auto max-w-7xl shrink-0 shadow-2xl">
         <div className="text-center pt-10 pb-5">
           <h2 className="text-4xl font-bold ">Add New Vehicle</h2>
         </div>
@@ -213,7 +213,7 @@ const AddVehicle = () => {
             <h2 className="text-3xl font-medium ">Documents</h2>
           </div>
 
-          <div className="flex justify-center gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 justify-center gap-4">
             <div className="border-[3px] p-4">
               <div className="text-center pt-3 pb-3">
                 <h2 className="text-xl font-medium ">Tax Document</h2>
@@ -317,7 +317,7 @@ const AddVehicle = () => {
           </div>
 
           <div className="form-control mt-6 pb-10">
-            <button className="btn btn-primary text-white text-xl">
+            <button className="btn btn-primary bg-amber-400 border-0 text-white text-xl">
               Add Vehicle
             </button>
           </div>

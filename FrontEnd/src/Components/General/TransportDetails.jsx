@@ -284,7 +284,7 @@ const TransportDetails = () => {
         <img
           src={vehicles.imageUrl}
           alt="Transport Image"
-          className="md:w-1/2 rounded-lg px-20"
+          className="md:w-1/2 px-10 md:px-20"
         />
         <div className="space-y-7 w-1/2">
           <h3 className="text-3xl md:text-5xl font-semibold text-[#791B1B]">
@@ -296,7 +296,7 @@ const TransportDetails = () => {
           </h2>
           <h2 className="w-full">
             <div className="text-xl md:text-3xl font-semibold">Notes:</div>
-            <div className="max-w-2xl text-justify bg-white w-full p-3 pb-20 mt-2 rounded-lg ">
+            <div className="max-w-2xl text-justify bg-gray-50 w-full p-3 pb-20 mt-2 rounded-lg ">
               {vehicles.description}
             </div>
           </h2>

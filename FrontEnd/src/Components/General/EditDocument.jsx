@@ -91,7 +91,7 @@ const EditDocument = () => {
     navigate(-1);
   }
   return (
-    <div className="container mx-auto px-4 lg:px-0 mt-20 font-frank">
+    <div className="container mx-auto px-4 lg:px-0 mt-10 font-frank">
       <div>
       <div>
       <button onClick={handleBack}>
@@ -102,11 +102,11 @@ const EditDocument = () => {
       <form onSubmit={handleUpdateDocument} className="px-5 md:px-20 pb-20">
         <div className="border-[3px] p-4">
           <div className="text-center pt-3 pb-3">
-            <h2 className="text-xl font-medium ">{document?.type} Document</h2>
+            <h2 className="text-xl md:text-2xl font-semibold ">{document?.type} Document</h2>
           </div>
           <div className="form-control w-full">
             <label className="label">
-              <span className="label-text">{document?.type} Image</span>
+              <span className="label-text text-lg font-medium text-gray-600">{document?.type} Image</span>
             </label>
             <input
               type="file"
@@ -118,7 +118,7 @@ const EditDocument = () => {
           </div>
           <div className="form-control w-full">
             <label className="label">
-              <span className="label-text">Expiry Date</span>
+              <span className="label-text text-lg font-medium text-gray-600">Expiry Date</span>
             </label>
             <input
               type="date"

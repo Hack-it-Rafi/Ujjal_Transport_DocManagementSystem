@@ -17,10 +17,10 @@ const EditRequestList = () => {
   }, []);
   return (
     <div className="w-full flex justify-center">
-      <div className="overflow-x-auto bg-white rounded-lg">
-        <table className="table">
+      <div className="overflow-x-auto bg-gray-50 rounded-lg">
+        <table className="table table-zebra">
           {/* head */}
-          <thead className="bg-[#F5F5F5]">
+          <thead className="bg-[#eceaea]">
             <tr className="text-2xl font-serif font-bold">
               <th className="border-2 border-b-[#FFD576]">Created</th>
               <th className="border-2 border-b-[#FFD576]">Document Name</th>
