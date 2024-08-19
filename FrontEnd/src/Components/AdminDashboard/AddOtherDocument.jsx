@@ -1,10 +1,12 @@
-import axios from "axios";
+
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const AddOtherDocument = () => {
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleAddOtherDocument = (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const AddOtherDocument = () => {
       return data;
     };
 
-    axios
+    axiosSecure
       .post(
         "http://localhost:8000/api/v1/document//add-document",
         createFormData(documentName, taxDocImageUrl, taxDocExpiry),

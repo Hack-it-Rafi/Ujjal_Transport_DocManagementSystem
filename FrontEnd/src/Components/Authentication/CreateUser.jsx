@@ -1,9 +1,11 @@
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const CreateUser = () => {
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleAddVehicle = async (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ const CreateUser = () => {
 
       console.log(vehicle);
 
-      axios
+      axiosSecure
         .post("http://localhost:8000/api/v1/transport/add-transport", vehicle)
         .then((res) => {
           console.log(res.data.data);

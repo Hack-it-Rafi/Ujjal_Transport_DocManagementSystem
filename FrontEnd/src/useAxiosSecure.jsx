@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./Components/Authentication/AuthProvider";
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:8000/api/v1',
     withCredentials: true,
 
 })

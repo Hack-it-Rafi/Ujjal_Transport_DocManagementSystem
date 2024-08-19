@@ -17,6 +17,7 @@ import AdminRoute from "./Components/Authentication/AdminRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import EditDocument from "./Components/General/EditDocument";
 import AddOtherDocument from "./Components/AdminDashboard/AddOtherDocument";
+import ErrorPage from "./ErrorPage";
 
 const queryClient = new QueryClient();
 
@@ -24,14 +25,17 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage></LandingPage>,
+    errorElement: <ErrorPage></ErrorPage>,
   },
   {
     path: "login",
     element: <Login></Login>,
+    errorElement: <ErrorPage></ErrorPage>,
   },
   {
     path: "/home",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "transportList",

@@ -29,8 +29,6 @@ const auth = (...requiredRoles: TUserRole[]) => {
         throw new AppError(httpStatus.UNAUTHORIZED, 'User not found!');
       }
 
-      console.log(requiredRoles, user.role);
-
       if (requiredRoles.length && !requiredRoles.includes(user.role)) {
         throw new AppError(httpStatus.FORBIDDEN, 'You are not authorized!');
       }

@@ -2,17 +2,14 @@ import { useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import TransportCard from "../Common/TransportCard";
 import "react-tabs/style/react-tabs.css";
-import axios from "axios";
+
 import DocumentCard from "../Common/DocumentCard";
-import Cookies from 'js-cookie';
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const TransportList = () => {
+  const axiosSecure = useAxiosSecure();
   const [vehicles, setVehicles] = useState([]);
   const [documents, setDocuments] = useState([]);
-  Cookies.set('token1', 'your-jwt-token-here');
-
-  const token = Cookies.get('token');
-  console.log(token);
 
   const calculateRemainingDays = (expiryDate) => {
     const today = new Date();
@@ -41,13 +38,13 @@ const TransportList = () => {
   };
 
   const handleAll = () => {
-    axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
+    axiosSecure.get("http://localhost:8000/api/v1/transport/").then((res) => {
       handleResponse(res.data.data);
     });
   };
 
   const handleTruck = () => {
-    axios
+    axiosSecure
       .get("http://localhost:8000/api/v1/transport?type=Truck")
       .then((res) => {
         handleResponse(res.data.data);
@@ -55,7 +52,7 @@ const TransportList = () => {
   };
 
   const handlePickup = () => {
-    axios
+    axiosSecure
       .get("http://localhost:8000/api/v1/transport?type=Pickup")
       .then((res) => {
         handleResponse(res.data.data);
@@ -63,14 +60,14 @@ const TransportList = () => {
   };
 
   const handleMotorcycle = () => {
-    axios
+    axiosSecure
       .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
       .then((res) => {
         handleResponse(res.data.data);
       });
   };
   const handleOtherDocument = () => {
-    axios
+    axiosSecure
       .get("http://localhost:8000/api/v1/document?type=Other",{
         withCredentials: true,
       })
@@ -80,7 +77,7 @@ const TransportList = () => {
   };
 
   const handleSearch = (e) => {
-    axios
+    axiosSecure
       .get(
         `http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`
       )

@@ -1,12 +1,14 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FcAlarmClock } from "react-icons/fc";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import useAdmin from "../Hooks/useAdmin";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const TransportDetails = () => {
+  const axiosSecure = useAxiosSecure();
   const [vehicles, setVehicle] = useState(null);
   const [taxDocImage, setTaxDocImage] = useState(null);
   const [registrationDocImage, setRegistrationDocImage] = useState(null);
@@ -17,7 +19,7 @@ const TransportDetails = () => {
   const [isAdmin] = useAdmin();
 
   useEffect(() => {
-    axios
+    axiosSecure
       .get(`http://localhost:8000/api/v1/transport/${id}`)
       .then((res) => {
         setVehicle(res.data.data);
@@ -25,13 +27,13 @@ const TransportDetails = () => {
       .catch((err) => {
         console.error("Failed to fetch vehicle data:", err);
       });
-  }, [id]);
+  }, [axiosSecure, id]);
 
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
         const fetchImage = async (docId) => {
-          const response = await axios.get(
+          const response = await axiosSecure.get(
             `http://localhost:8000/api/v1/document/file/${docId}`,
             { responseType: "blob" }
           );
@@ -63,7 +65,7 @@ const TransportDetails = () => {
     if (vehicles) {
       fetchDocuments();
     }
-  }, [vehicles]);
+  }, [axiosSecure, vehicles]);
 
   if (!vehicles) {
     return <div>Loading...</div>;
@@ -256,7 +258,7 @@ const TransportDetails = () => {
           imageUrl,
         };
 
-        axios
+        axiosSecure
           .patch(`http://localhost:8000/api/v1/transport/${id}`, transport)
           .then(() => {
             Swal.fire("Success!", "Vehicle has been updated.", "success").then(

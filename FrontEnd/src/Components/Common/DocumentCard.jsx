@@ -1,10 +1,10 @@
 import Swal from "sweetalert2";
 import { FcAlarmClock } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const DocumentCard = ({ document }) => {
-
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const getStatus = (dateString) => {
@@ -25,7 +25,7 @@ const DocumentCard = ({ document }) => {
 
   const fetchImage = async (docId) => {
     try {
-      const response = await axios.get(
+      const response = await axiosSecure.get(
         `http://localhost:8000/api/v1/document/file/${docId}`,
         { responseType: "blob" }
       );
@@ -79,12 +79,11 @@ const DocumentCard = ({ document }) => {
   };
 
   return (
-    <div className={`bg-white rounded-lg drop-shadow-sm border-2 ${colorClass}`}>
+    <div
+      className={`bg-white rounded-lg drop-shadow-sm border-2 ${colorClass}`}
+    >
       <div className="h-1/2 flex w-full justify-center items-center py-5">
-        <button
-          onClick={handleView}
-          className="btn bg-[#293129a5] text-white"
-        >
+        <button onClick={handleView} className="btn bg-[#293129a5] text-white">
           View Document
         </button>
       </div>

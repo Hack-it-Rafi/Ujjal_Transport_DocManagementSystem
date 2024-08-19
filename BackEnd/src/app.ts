@@ -26,7 +26,8 @@ app.post('/api/v1/jwt', async (req: Request, res: Response) => {
 
   try {
     const token = jwt.sign(user, process.env.JWT_ACCESS_SECRET as string, {
-      expiresIn: '1h',
+      // expiresIn: '1h',
+      expiresIn: '12h',
     });
 
     res
@@ -34,7 +35,8 @@ app.post('/api/v1/jwt', async (req: Request, res: Response) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-        maxAge: 3600000, // 1 hour in milliseconds
+        // maxAge: 3600000, 
+        maxAge: 12 * 60 * 60 * 1000,
       })
       .send({ success: true });
   } catch (error) {

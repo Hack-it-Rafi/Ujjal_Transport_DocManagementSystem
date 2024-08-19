@@ -1,7 +1,9 @@
-import axios from "axios";
+
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const EditRequestTableRow = ({ editRequest }) => {
+  const axiosSecure = useAxiosSecure();
   const {
     _id,
     docId,
@@ -18,7 +20,7 @@ const EditRequestTableRow = ({ editRequest }) => {
 
   // Fetch the Blob directly
   const fetchImageBlob = async (id) => {
-    const response = await axios.get(
+    const response = await axiosSecure.get(
       `http://localhost:8000/api/v1/editRequest/file/${id}`,
       {
         responseType: "blob",
@@ -70,7 +72,7 @@ const EditRequestTableRow = ({ editRequest }) => {
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-          axios
+          axiosSecure
             .patch(`http://localhost:8000/api/v1/document/${docId}`, formData, {
               headers: {
                 "Content-Type": "multipart/form-data",
@@ -78,7 +80,7 @@ const EditRequestTableRow = ({ editRequest }) => {
             })
             .then((res) => {
               if (res.status === 200) {
-                axios
+                axiosSecure
                   .delete(`http://localhost:8000/api/v1/editRequest/${_id}`)
                   .then((res) => {
                     if (res.status === 200) {
@@ -111,7 +113,7 @@ const EditRequestTableRow = ({ editRequest }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
+        axiosSecure
           .delete(`http://localhost:8000/api/v1/editRequest/${_id}`)
           .then((res) => {
             if (res.status === 200) {

@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await signOut(auth);
+      // await signOut(auth);
   
       return userCredential; 
     } catch (error) {

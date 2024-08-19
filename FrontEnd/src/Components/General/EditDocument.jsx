@@ -1,18 +1,20 @@
-import axios from "axios";
+
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../Authentication/AuthProvider";
 import Swal from "sweetalert2";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const EditDocument = () => {
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const [document, setDocument] = useState(null);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
+    axiosSecure
       .get(`http://localhost:8000/api/v1/document/${id}`)
       .then((res) => {
         setDocument(res.data.data);
@@ -20,7 +22,7 @@ const EditDocument = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [id]);
+  }, [axiosSecure, id]);
 
   const handleUpdateDocument = (e) => {
     e.preventDefault();
@@ -45,7 +47,7 @@ const EditDocument = () => {
       return data;
     };
 
-    axios
+    axiosSecure
       .post(
         "http://localhost:8000/api/v1/editRequest/add-editRequest",
         createFormData(),

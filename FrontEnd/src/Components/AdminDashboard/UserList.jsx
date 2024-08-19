@@ -2,23 +2,29 @@ import { useContext, useEffect, useState } from "react";
 import UserListTableRow from "./UserListTableRow";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Authentication/AuthProvider";
-import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 
 const UserList = () => {
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([]);
-  const { user, createUser} = useContext(AuthContext);
+  const { user, createUser, logOut } = useContext(AuthContext);
 
   useEffect(() => {
-    axios
+    axiosSecure
       .get("http://localhost:8000/api/v1/user")
       .then((res) => {
-        const filteredUsers = res.data.data.filter((u) => u.email !== user.email);
+        const filteredUsers = res.data.data.filter(
+          (u) => u.email !== user.email
+        );
         setUsers(filteredUsers);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [user]);
+  }, [axiosSecure, user]);
   const handleAddUser = () => {
     let nameInput, emailInput, phoneInput, passwordInput, roleInput;
 
@@ -66,7 +72,7 @@ const UserList = () => {
         const { name, email, phone, password, role } = result.value;
         createUser(email, password)
           .then(() => {
-            axios
+            axiosSecure
               .post("http://localhost:8000/api/v1/user/create-user", {
                 name,
                 email,
@@ -78,6 +84,9 @@ const UserList = () => {
                 console.log(res);
                 setUsers((prevUsers) => [...prevUsers, res.data.data]);
                 Swal.fire("Success!", "User has been added.", "success");
+                logOut().then(() => {
+                  navigate("/login");
+                });
               })
               .catch((error) => {
                 Swal.fire("Error!", "There was an error in local.", "error");

@@ -15,7 +15,7 @@ router.post(
 
 router.get('/:id', auth('admin'), UserControllers.getSingleUser);
 
-router.get('/', UserControllers.getAllUsers);
+router.get('/', auth('admin','editor'), UserControllers.getAllUsers);
 
 router.patch(
   '/:userId',

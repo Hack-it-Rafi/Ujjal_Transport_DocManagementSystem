@@ -1,7 +1,10 @@
-import axios from "axios";
+
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const UserListTableRow = ({ user }) => {
+  const axiosSecure = useAxiosSecure();
+
   const { _id, email, name, phone, role, createdAt } = user;
   const formattedCreatedAt = new Date(createdAt).toISOString().split("T")[0];
 
@@ -16,7 +19,7 @@ const UserListTableRow = ({ user }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
+        axiosSecure
           .delete(`http://localhost:8000/api/v1/user/${_id}`)
           .then((res) => {
             if (res.status === 200) {
@@ -38,7 +41,7 @@ const UserListTableRow = ({ user }) => {
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
+        axiosSecure
           .patch(`http://localhost:8000/api/v1/user/${_id}`, {role:"admin"})
           .then((res) => {
             if (res.status === 200) {

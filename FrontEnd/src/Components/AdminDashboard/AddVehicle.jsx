@@ -1,9 +1,10 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const AddVehicle = () => {
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   const handleAddVehicle = async (e) => {
     e.preventDefault();
@@ -43,7 +44,7 @@ const AddVehicle = () => {
       // Conditionally post each document only if input is provided
       if (taxDocImageUrl && taxDocExpiry) {
         promises.push(
-          axios.post(
+          axiosSecure.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(taxDocImageUrl, "Tax", taxDocExpiry),
             {
@@ -57,7 +58,7 @@ const AddVehicle = () => {
 
       if (registrationDocImageUrl && registrationDocExpiry) {
         promises.push(
-          axios.post(
+          axiosSecure.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(registrationDocImageUrl, "Registration", registrationDocExpiry),
             {
@@ -71,7 +72,7 @@ const AddVehicle = () => {
 
       if (fitnessDocImage && fitnessDocExpiry) {
         promises.push(
-          axios.post(
+          axiosSecure.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(fitnessDocImage, "Fitness", fitnessDocExpiry),
             {
@@ -85,7 +86,7 @@ const AddVehicle = () => {
 
       if (routePermitImage && routePermitExpiry) {
         promises.push(
-          axios.post(
+          axiosSecure.post(
             "http://localhost:8000/api/v1/document/add-document",
             createFormData(routePermitImage, "RoutePermit", routePermitExpiry),
             {
@@ -115,7 +116,7 @@ const AddVehicle = () => {
         routePermitDoc: documentIds[3] || null,
       };
 
-      await axios.post("http://localhost:8000/api/v1/transport/add-transport", vehicle);
+      await axiosSecure.post("http://localhost:8000/api/v1/transport/add-transport", vehicle);
 
       Swal.fire({
         title: "Vehicle added successfully!",

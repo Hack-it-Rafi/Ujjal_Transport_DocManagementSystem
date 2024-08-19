@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import EditRequestTableRow from "./EditRequestTableRow";
-import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const EditRequestList = () => {
   const [editRequests, setEditRequests] = useState([]);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axios
+    axiosSecure
       .get("http://localhost:8000/api/v1/editRequest")
       .then((res) => {
         setEditRequests(res.data.data);
@@ -14,7 +15,7 @@ const EditRequestList = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [axiosSecure]);
   return (
     <div className="w-full flex justify-center">
       <div className="overflow-x-auto bg-gray-50 rounded-lg">
