@@ -31,7 +31,7 @@ const Navbar = () => {
     <div className="bg-[#1D1912] h-20">
       <div className="h-full flex items-center justify-between max-w-7xl mx-auto">
         <img onClick={handleRedirect}
-          className="w-44"
+          className="w-32 md:w-44"
           src="/ujjal-flour-high-resolution-logo-transparent.png"
           alt="logo"
         />
@@ -47,7 +47,7 @@ const Navbar = () => {
             {/* <div className="text-white">{user.email}</div> */}
               <button
                 onClick={handleLogOut}
-                className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white"
+                className="w-20 h-8 md:w-28 md:h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-sm md:text-xl text-center hover:bg-white"
               >
                 Sign Out
               </button>
@@ -56,7 +56,7 @@ const Navbar = () => {
           ) : (
             <div>
               <Link to="/login">
-              <button className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white">
+              <button className="w-20 h-8 md:w-28 md:h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-sm md:text-xl text-center hover:bg-white">
                 Log In
               </button>
             </Link>

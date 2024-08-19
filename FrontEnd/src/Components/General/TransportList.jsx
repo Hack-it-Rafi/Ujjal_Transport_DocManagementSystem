@@ -95,26 +95,24 @@ const TransportList = () => {
     <div className="max-w-7xl mx-auto flex flex-col py-10 justify-center gap-8 px-5">
       <div>
         <Tabs defaultFocus={true}>
-          <div className="flex justify-between items-center">
-            <div className="flex-1 flex justify-center navbar-center">
-              <TabList className="flex justify-center gap-3 menu menu-horizontal">
-                <Tab onFocus={handleAll}>
-                  <h1>All</h1>
-                </Tab>
-                <Tab onFocus={handleTruck}>
-                  <h1>Truck</h1>
-                </Tab>
-                <Tab onFocus={handlePickup}>
-                  <h1>Pickup</h1>
-                </Tab>
-                <Tab onFocus={handleMotorcycle}>
-                  <h1>Motorcycle</h1>
-                </Tab>
-                <Tab onFocus={handleOtherDocument}>
-                  <h1>Other Documents</h1>
-                </Tab>
-              </TabList>
-            </div>
+          <div className="flex flex-col-reverse md:flex-row md:space-x-2 md:items-center justify-between items-end gap-2 text-xs md:text-base">
+            <TabList className="grid grid-cols-3 md:grid-cols-5 justify-between gap-x-4">
+              <Tab onFocus={handleAll}>
+                <h1>All</h1>
+              </Tab>
+              <Tab onFocus={handleTruck}>
+                <h1>Truck</h1>
+              </Tab>
+              <Tab onFocus={handlePickup}>
+                <h1>Pickup</h1>
+              </Tab>
+              <Tab onFocus={handleMotorcycle}>
+                <h1>Motorcycle</h1>
+              </Tab>
+              <Tab onFocus={handleOtherDocument}>
+                <h1>Other Documents</h1>
+              </Tab>
+            </TabList>
             <div className="">
               <div className="form-control">
                 <input
