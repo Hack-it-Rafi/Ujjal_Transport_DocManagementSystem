@@ -3,77 +3,94 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import TransportCard from "../Common/TransportCard";
 import "react-tabs/style/react-tabs.css";
 import axios from "axios";
-
+import DocumentCard from "../Common/DocumentCard";
+import Cookies from 'js-cookie';
 
 const TransportList = () => {
   const [vehicles, setVehicles] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  Cookies.set('token1', 'your-jwt-token-here');
 
-const calculateRemainingDays = (expiryDate) => {
-  const today = new Date();
-  const expiry = new Date(expiryDate);
-  const timeDiff = expiry - today;
-  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
-  return daysDiff; // If the date has passed, return 0
-};
+  const token = Cookies.get('token');
+  console.log(token);
 
-const calculateTotalRemainingDays = (vehicle) => {
-  const { fitnessDoc, registrationDoc, routePermitDoc, taxDoc } = vehicle;
+  const calculateRemainingDays = (expiryDate) => {
+    const today = new Date();
+    const expiry = new Date(expiryDate);
+    const timeDiff = expiry - today;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert milliseconds to days
+    return daysDiff; // If the date has passed, return 0
+  };
 
-  return (
-    calculateRemainingDays(fitnessDoc?.dateOfExpiry) +
-    calculateRemainingDays(registrationDoc?.dateOfExpiry) +
-    calculateRemainingDays(routePermitDoc?.dateOfExpiry) +
-    calculateRemainingDays(taxDoc?.dateOfExpiry)
-  );
-};
+  const calculateTotalRemainingDays = (vehicle) => {
+    const { fitnessDoc, registrationDoc, routePermitDoc, taxDoc } = vehicle;
 
-const handleResponse = (data) => {
-  const sortedData = data.sort(
-    (a, b) => calculateTotalRemainingDays(a) - calculateTotalRemainingDays(b)
-  );
-  setVehicles(sortedData);
-};
+    return (
+      calculateRemainingDays(fitnessDoc?.dateOfExpiry) +
+      calculateRemainingDays(registrationDoc?.dateOfExpiry) +
+      calculateRemainingDays(routePermitDoc?.dateOfExpiry) +
+      calculateRemainingDays(taxDoc?.dateOfExpiry)
+    );
+  };
 
-const handleAll = () => {
-  axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
-    handleResponse(res.data.data);
-  });
-};
+  const handleResponse = (data) => {
+    const sortedData = data.sort(
+      (a, b) => calculateTotalRemainingDays(a) - calculateTotalRemainingDays(b)
+    );
+    setVehicles(sortedData);
+  };
 
-const handleTruck = () => {
-  axios
-    .get("http://localhost:8000/api/v1/transport?type=Truck")
-    .then((res) => {
+  const handleAll = () => {
+    axios.get("http://localhost:8000/api/v1/transport/").then((res) => {
       handleResponse(res.data.data);
     });
-};
+  };
 
-const handlePickup = () => {
-  axios
-    .get("http://localhost:8000/api/v1/transport?type=Pickup")
-    .then((res) => {
-      handleResponse(res.data.data);
-    });
-};
+  const handleTruck = () => {
+    axios
+      .get("http://localhost:8000/api/v1/transport?type=Truck")
+      .then((res) => {
+        handleResponse(res.data.data);
+      });
+  };
 
-const handleMotorcycle = () => {
-  axios
-    .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
-    .then((res) => {
-      handleResponse(res.data.data);
-    });
-};
+  const handlePickup = () => {
+    axios
+      .get("http://localhost:8000/api/v1/transport?type=Pickup")
+      .then((res) => {
+        handleResponse(res.data.data);
+      });
+  };
 
-const handleSearch = (e) => {
-  axios
-    .get(`http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`)
-    .then((res) => {
-      handleResponse(res.data.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
+  const handleMotorcycle = () => {
+    axios
+      .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
+      .then((res) => {
+        handleResponse(res.data.data);
+      });
+  };
+  const handleOtherDocument = () => {
+    axios
+      .get("http://localhost:8000/api/v1/document?type=Other",{
+        withCredentials: true,
+      })
+      .then((res) => {
+        setDocuments(res.data.data);
+      });
+  };
+
+  const handleSearch = (e) => {
+    axios
+      .get(
+        `http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`
+      )
+      .then((res) => {
+        handleResponse(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   return (
     <div className="max-w-7xl mx-auto flex flex-col py-10 justify-center gap-8 px-5">
@@ -93,6 +110,9 @@ const handleSearch = (e) => {
                 </Tab>
                 <Tab onFocus={handleMotorcycle}>
                   <h1>Motorcycle</h1>
+                </Tab>
+                <Tab onFocus={handleOtherDocument}>
+                  <h1>Other Documents</h1>
                 </Tab>
               </TabList>
             </div>
@@ -145,6 +165,16 @@ const handleSearch = (e) => {
                   key={vehicle._id}
                   vehicle={vehicle}
                 ></TransportCard>
+              ))}
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-10 justify-center items-center sm:grid-cols-2 gap-x-12 gap-y-8 ">
+              {documents.map((document) => (
+                <DocumentCard
+                  key={document._id}
+                  document={document}
+                ></DocumentCard>
               ))}
             </div>
           </TabPanel>

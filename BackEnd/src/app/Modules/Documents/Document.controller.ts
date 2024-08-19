@@ -57,40 +57,33 @@ const getDocumentFile = catchAsync(async (req, res) => {
 const updateDocument = catchAsync(async (req, res) => {
   const { id } = req.params;
 
-  // Fetch the document from the database to get the old image URL
   const existingDocument = await DocumentServices.getSingleDocumentFromDB(id);
 
   if (!existingDocument) {
     return res.status(404).json({ message: "Document not found" });
   }
 
-  // Check if a new file is provided
   if (req.file) {
-    // Get the path of the new file
     const newImagePath = req.file.path;
 
-    // Delete the old image file if it exists
     if (existingDocument.imageUrl) {
       const oldImagePath = path.join(process.cwd(), existingDocument.imageUrl);
 
       try {
-        // Check if the file exists before trying to delete
         if (fs.existsSync(oldImagePath)) {
           fs.unlinkSync(oldImagePath);
-          console.log(`Deleted old image: ${oldImagePath}`);
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Failed to delete old image:', error);
       }
     }
 
-    // Update the document in the database with the new image path
     const updatedDocumentData = {
-      ...req.body, // Other fields like dateOfExpiry
-      imageUrl: newImagePath, // New image path
+      ...req.body, 
+      imageUrl: newImagePath, 
     };
 
-    // Save the updated document
     const result = await DocumentServices.updateDocumentIntoDB(id, updatedDocumentData);
 
     return sendResponse(res, {
@@ -100,7 +93,6 @@ const updateDocument = catchAsync(async (req, res) => {
       data: result,
     });
   } else {
-    // If no new image is provided, just update the document with the other fields
     const result = await DocumentServices.updateDocumentIntoDB(id, req.body);
 
     return sendResponse(res, {

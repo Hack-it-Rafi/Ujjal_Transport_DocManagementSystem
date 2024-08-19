@@ -134,7 +134,7 @@ const AddVehicle = () => {
     <div className="pb-10">
       <div className="card bg-gray-50 w-full mx-auto max-w-7xl shrink-0 shadow-2xl">
         <div className="text-center pt-10 pb-5">
-          <h2 className="text-4xl font-bold ">Add New Vehicle</h2>
+          <h2 className="text-5xl font-bold ">Add New Vehicle</h2>
         </div>
         <form onSubmit={handleAddVehicle} className="px-10">
           <div className="flex gap-4">

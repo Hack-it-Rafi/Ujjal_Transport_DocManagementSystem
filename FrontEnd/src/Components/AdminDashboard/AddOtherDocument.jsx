@@ -42,6 +42,7 @@ const AddOtherDocument = () => {
           icon: "success",
           confirmButtonText: "Continue",
         });
+        form.reset();
         // navigate("/home/transportList");
       })
       .catch((error) => {
@@ -61,7 +62,7 @@ const AddOtherDocument = () => {
   };
   return (
     <div>
-      <div className="container mx-auto px-4 lg:px-0 font-frank">
+      <div className="container mx-auto pb-10 px-4 lg:px-0 font-frank">
         <div>
           <div>
             <button onClick={handleBack}>

@@ -274,7 +274,7 @@ const TransportDetails = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 lg:px-0 mt-20 font-frank">
+    <div className="container mx-auto px-4 lg:px-0 mt-10 font-frank">
       <div>
         <button onClick={handleBack}>
           <IoArrowBackCircleOutline size={50} />
@@ -286,7 +286,7 @@ const TransportDetails = () => {
           alt="Transport Image"
           className="md:w-1/2 px-10 md:px-20"
         />
-        <div className="space-y-7 w-1/2">
+        <div className="space-y-7 w-full md:w-1/2">
           <h3 className="text-3xl md:text-5xl font-semibold text-[#791B1B]">
             {vehicles.titleNumber}
           </h3>

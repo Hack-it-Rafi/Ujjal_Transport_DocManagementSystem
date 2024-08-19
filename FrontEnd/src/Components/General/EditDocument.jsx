@@ -34,17 +34,6 @@ const EditDocument = () => {
     const type = document.type;
     const dateOfExpiry = form.date.value;
 
-    // const editData = {
-    //   docId,
-    //   editorEmail,
-    //   vehicleName,
-    //   imageUrl,
-    //   type,
-    //   dateOfExpiry,
-    // };
-
-    // console.log(editData);
-
     const createFormData = () => {
       const data = new FormData();
       data.append("docId", docId);
@@ -74,6 +63,7 @@ const EditDocument = () => {
           icon: "success",
           confirmButtonText: "Continue",
         });
+        form.reset();
         navigate(-1);
       })
       .catch((error) => {

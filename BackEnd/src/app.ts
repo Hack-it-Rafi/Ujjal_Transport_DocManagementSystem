@@ -5,6 +5,7 @@ import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
 import router from './app/routes';
 const app: Application = express();
+import cookieParser from 'cookie-parser';
 // const port = 3000
 
 const corsOptions = {
@@ -15,6 +16,7 @@ const corsOptions = {
 // parsers
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(cookieParser());
 
 // application routes
 app.use('/api/v1', router);

@@ -93,7 +93,7 @@ const UserList = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full pb-10">
       <div className="w-full flex justify-center">
         <div className="overflow-x-auto bg-gray-50 rounded-lg">
           <table className="table table-zebra">
