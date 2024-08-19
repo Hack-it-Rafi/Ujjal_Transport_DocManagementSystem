@@ -1,4 +1,3 @@
-
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -28,7 +27,7 @@ const AddOtherDocument = () => {
 
     axiosSecure
       .post(
-        "http://localhost:8000/api/v1/document//add-document",
+        "https://api.ujjalflourmills.com/api/v1/document//add-document",
         createFormData(documentName, taxDocImageUrl, taxDocExpiry),
         {
           headers: {
@@ -56,7 +55,6 @@ const AddOtherDocument = () => {
           confirmButtonText: "Retry",
         });
       });
-      
   };
 
   const handleBack = () => {
@@ -126,4 +124,3 @@ const AddOtherDocument = () => {
 };
 
 export default AddOtherDocument;
-

@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
@@ -24,7 +23,10 @@ const CreateUser = () => {
       console.log(vehicle);
 
       axiosSecure
-        .post("http://localhost:8000/api/v1/transport/add-transport", vehicle)
+        .post(
+          "https://api.ujjalflourmills.com/api/v1/transport/add-transport",
+          vehicle
+        )
         .then((res) => {
           console.log(res.data.data);
           Swal.fire({

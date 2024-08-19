@@ -8,7 +8,7 @@ const EditRequestList = () => {
 
   useEffect(() => {
     axiosSecure
-      .get("http://localhost:8000/api/v1/editRequest")
+      .get("https://api.ujjalflourmills.com/api/v1/editRequest")
       .then((res) => {
         setEditRequests(res.data.data);
       })

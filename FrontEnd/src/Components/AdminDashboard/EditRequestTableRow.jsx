@@ -1,4 +1,3 @@
-
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 
@@ -21,7 +20,7 @@ const EditRequestTableRow = ({ editRequest }) => {
   // Fetch the Blob directly
   const fetchImageBlob = async (id) => {
     const response = await axiosSecure.get(
-      `http://localhost:8000/api/v1/editRequest/file/${id}`,
+      `https://api.ujjalflourmills.com/api/v1/editRequest/file/${id}`,
       {
         responseType: "blob",
       }
@@ -32,7 +31,7 @@ const EditRequestTableRow = ({ editRequest }) => {
   const handleView = async () => {
     const imageBlob = await fetchImageBlob(_id);
     const imageObjectURL = URL.createObjectURL(imageBlob);
-    
+
     if (imageObjectURL) {
       Swal.fire({
         html: `<img src="${imageObjectURL}" alt="Document Image" className="w-full">`,
@@ -73,15 +72,21 @@ const EditRequestTableRow = ({ editRequest }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           axiosSecure
-            .patch(`http://localhost:8000/api/v1/document/${docId}`, formData, {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-            })
+            .patch(
+              `https://api.ujjalflourmills.com/api/v1/document/${docId}`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            )
             .then((res) => {
               if (res.status === 200) {
                 axiosSecure
-                  .delete(`http://localhost:8000/api/v1/editRequest/${_id}`)
+                  .delete(
+                    `https://api.ujjalflourmills.com/api/v1/editRequest/${_id}`
+                  )
                   .then((res) => {
                     if (res.status === 200) {
                       window.location.reload();
@@ -114,7 +119,7 @@ const EditRequestTableRow = ({ editRequest }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`http://localhost:8000/api/v1/editRequest/${_id}`)
+          .delete(`https://api.ujjalflourmills.com/api/v1/editRequest/${_id}`)
           .then((res) => {
             if (res.status === 200) {
               window.location.reload();

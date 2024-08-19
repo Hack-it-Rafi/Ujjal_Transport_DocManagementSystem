@@ -14,7 +14,7 @@ const UserList = () => {
 
   useEffect(() => {
     axiosSecure
-      .get("http://localhost:8000/api/v1/user")
+      .get("https://api.ujjalflourmills.com/api/v1/user")
       .then((res) => {
         const filteredUsers = res.data.data.filter(
           (u) => u.email !== user.email
@@ -73,7 +73,7 @@ const UserList = () => {
         createUser(email, password)
           .then(() => {
             axiosSecure
-              .post("http://localhost:8000/api/v1/user/create-user", {
+              .post("https://api.ujjalflourmills.com/api/v1/user/create-user", {
                 name,
                 email,
                 phone,

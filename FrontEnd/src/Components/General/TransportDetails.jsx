@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FcAlarmClock } from "react-icons/fc";
@@ -20,7 +19,7 @@ const TransportDetails = () => {
 
   useEffect(() => {
     axiosSecure
-      .get(`http://localhost:8000/api/v1/transport/${id}`)
+      .get(`https://api.ujjalflourmills.com/api/v1/transport/${id}`)
       .then((res) => {
         setVehicle(res.data.data);
       })
@@ -34,7 +33,7 @@ const TransportDetails = () => {
       try {
         const fetchImage = async (docId) => {
           const response = await axiosSecure.get(
-            `http://localhost:8000/api/v1/document/file/${docId}`,
+            `https://api.ujjalflourmills.com/api/v1/document/file/${docId}`,
             { responseType: "blob" }
           );
           return URL.createObjectURL(response.data);
@@ -259,7 +258,10 @@ const TransportDetails = () => {
         };
 
         axiosSecure
-          .patch(`http://localhost:8000/api/v1/transport/${id}`, transport)
+          .patch(
+            `https://api.ujjalflourmills.com/api/v1/transport/${id}`,
+            transport
+          )
           .then(() => {
             Swal.fire("Success!", "Vehicle has been updated.", "success").then(
               () => {

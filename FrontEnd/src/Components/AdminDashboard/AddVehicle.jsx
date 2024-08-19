@@ -45,7 +45,7 @@ const AddVehicle = () => {
       if (taxDocImageUrl && taxDocExpiry) {
         promises.push(
           axiosSecure.post(
-            "http://localhost:8000/api/v1/document/add-document",
+            "https://api.ujjalflourmills.com/api/v1/document/add-document",
             createFormData(taxDocImageUrl, "Tax", taxDocExpiry),
             {
               headers: {
@@ -59,8 +59,12 @@ const AddVehicle = () => {
       if (registrationDocImageUrl && registrationDocExpiry) {
         promises.push(
           axiosSecure.post(
-            "http://localhost:8000/api/v1/document/add-document",
-            createFormData(registrationDocImageUrl, "Registration", registrationDocExpiry),
+            "https://api.ujjalflourmills.com/api/v1/document/add-document",
+            createFormData(
+              registrationDocImageUrl,
+              "Registration",
+              registrationDocExpiry
+            ),
             {
               headers: {
                 "Content-Type": "multipart/form-data",
@@ -73,7 +77,7 @@ const AddVehicle = () => {
       if (fitnessDocImage && fitnessDocExpiry) {
         promises.push(
           axiosSecure.post(
-            "http://localhost:8000/api/v1/document/add-document",
+            "https://api.ujjalflourmills.com/api/v1/document/add-document",
             createFormData(fitnessDocImage, "Fitness", fitnessDocExpiry),
             {
               headers: {
@@ -87,7 +91,7 @@ const AddVehicle = () => {
       if (routePermitImage && routePermitExpiry) {
         promises.push(
           axiosSecure.post(
-            "http://localhost:8000/api/v1/document/add-document",
+            "https://api.ujjalflourmills.com/api/v1/document/add-document",
             createFormData(routePermitImage, "RoutePermit", routePermitExpiry),
             {
               headers: {
@@ -116,7 +120,10 @@ const AddVehicle = () => {
         routePermitDoc: documentIds[3] || null,
       };
 
-      await axiosSecure.post("http://localhost:8000/api/v1/transport/add-transport", vehicle);
+      await axiosSecure.post(
+        "https://api.ujjalflourmills.com/api/v1/transport/add-transport",
+        vehicle
+      );
 
       Swal.fire({
         title: "Vehicle added successfully!",
@@ -246,7 +253,9 @@ const AddVehicle = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text font-semibold">Registration Image</span>
+                  <span className="label-text font-semibold">
+                    Registration Image
+                  </span>
                 </label>
                 <input
                   type="file"
@@ -271,7 +280,9 @@ const AddVehicle = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text font-semibold">Fitness Image</span>
+                  <span className="label-text font-semibold">
+                    Fitness Image
+                  </span>
                 </label>
                 <input
                   type="file"
@@ -296,7 +307,9 @@ const AddVehicle = () => {
               </div>
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text font-semibold">Route Permit Image</span>
+                  <span className="label-text font-semibold">
+                    Route Permit Image
+                  </span>
                 </label>
                 <input
                   type="file"

@@ -29,7 +29,7 @@ const Login = () => {
           confirmButtonText: "Continue",
         });
         axios
-          .post("http://localhost:8000/api/v1/jwt", myUser, {
+          .post("https://api.ujjalflourmills.com/api/v1/jwt", myUser, {
             withCredentials: true,
           })
           .then((res) => {
@@ -48,21 +48,21 @@ const Login = () => {
       });
   };
 
-  const handleRedirect = ()=>{
+  const handleRedirect = () => {
     navigate("/");
-  }
+  };
 
   return (
     <div className=" min-h-screen">
       <div className="w-full flex justify-center my-20">
-        <img onClick={handleRedirect}
+        <img
+          onClick={handleRedirect}
           className="w-80"
           src="/ujjal-flour-high-resolution-logo-transparent.png"
           alt="logo"
         />
-        </div>
+      </div>
       <div className="hero">
-        
         <div className="hero-content flex-col lg:flex-row">
           <div className="text-center flex justify-center w-1/2 lg:text-left">
             <img className="w-2/3" src={logo} alt="" />

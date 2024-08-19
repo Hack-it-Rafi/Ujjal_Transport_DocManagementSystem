@@ -9,8 +9,8 @@ import cookieParser from 'cookie-parser';
 // const port = 3000
 
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  credentials: true, 
+  origin: ['http://localhost:5173', 'https://transportdoc.ujjalflourmills.com'],
+  credentials: true,
 };
 
 // parsers

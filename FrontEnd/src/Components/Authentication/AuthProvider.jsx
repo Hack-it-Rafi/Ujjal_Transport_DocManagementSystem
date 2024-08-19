@@ -18,13 +18,17 @@ const AuthProvider = ({ children }) => {
   const createUser = async (email, password) => {
     try {
       setLoading(true);
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       // await signOut(auth);
-  
-      return userCredential; 
+
+      return userCredential;
     } catch (error) {
       console.error("Error creating user:", error);
-      throw error; 
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -56,13 +60,13 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       if (currentUser) {
         axios
-          .post("http://localhost:8000/api/v1/jwt", loggedUser, {
+          .post("https://api.ujjalflourmills.com/api/v1/jwt", loggedUser, {
             withCredentials: true,
           })
           .then();
       } else {
         axios
-          .post("http://localhost:8000/api/v1/logout", loggedUser, {
+          .post("https://api.ujjalflourmills.com/api/v1/logout", loggedUser, {
             withCredentials: true,
           })
           .then();

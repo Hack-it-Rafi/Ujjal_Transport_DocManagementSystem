@@ -1,4 +1,3 @@
-
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 
@@ -20,7 +19,7 @@ const UserListTableRow = ({ user }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .delete(`http://localhost:8000/api/v1/user/${_id}`)
+          .delete(`https://api.ujjalflourmills.com/api/v1/user/${_id}`)
           .then((res) => {
             if (res.status === 200) {
               window.location.reload();
@@ -42,7 +41,9 @@ const UserListTableRow = ({ user }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch(`http://localhost:8000/api/v1/user/${_id}`, {role:"admin"})
+          .patch(`https://api.ujjalflourmills.com/api/v1/user/${_id}`, {
+            role: "admin",
+          })
           .then((res) => {
             if (res.status === 200) {
               window.location.reload();

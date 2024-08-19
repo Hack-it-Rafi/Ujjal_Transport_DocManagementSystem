@@ -38,14 +38,16 @@ const TransportList = () => {
   };
 
   const handleAll = () => {
-    axiosSecure.get("http://localhost:8000/api/v1/transport/").then((res) => {
-      handleResponse(res.data.data);
-    });
+    axiosSecure
+      .get("https://api.ujjalflourmills.com/api/v1/transport/")
+      .then((res) => {
+        handleResponse(res.data.data);
+      });
   };
 
   const handleTruck = () => {
     axiosSecure
-      .get("http://localhost:8000/api/v1/transport?type=Truck")
+      .get("https://api.ujjalflourmills.com/api/v1/transport?type=Truck")
       .then((res) => {
         handleResponse(res.data.data);
       });
@@ -53,7 +55,7 @@ const TransportList = () => {
 
   const handlePickup = () => {
     axiosSecure
-      .get("http://localhost:8000/api/v1/transport?type=Pickup")
+      .get("https://api.ujjalflourmills.com/api/v1/transport?type=Pickup")
       .then((res) => {
         handleResponse(res.data.data);
       });
@@ -61,14 +63,14 @@ const TransportList = () => {
 
   const handleMotorcycle = () => {
     axiosSecure
-      .get("http://localhost:8000/api/v1/transport?type=Motorcycle")
+      .get("https://api.ujjalflourmills.com/api/v1/transport?type=Motorcycle")
       .then((res) => {
         handleResponse(res.data.data);
       });
   };
   const handleOtherDocument = () => {
     axiosSecure
-      .get("http://localhost:8000/api/v1/document?type=Other",{
+      .get("https://api.ujjalflourmills.com/api/v1/document?type=Other", {
         withCredentials: true,
       })
       .then((res) => {
@@ -79,7 +81,7 @@ const TransportList = () => {
   const handleSearch = (e) => {
     axiosSecure
       .get(
-        `http://localhost:8000/api/v1/transport?searchTerm=${e.target.value}`
+        `https://api.ujjalflourmills.com/api/v1/transport?searchTerm=${e.target.value}`
       )
       .then((res) => {
         handleResponse(res.data.data);

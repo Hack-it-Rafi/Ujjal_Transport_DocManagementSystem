@@ -26,7 +26,7 @@ const DocumentCard = ({ document }) => {
   const fetchImage = async (docId) => {
     try {
       const response = await axiosSecure.get(
-        `http://localhost:8000/api/v1/document/file/${docId}`,
+        `https://api.ujjalflourmills.com/api/v1/document/file/${docId}`,
         { responseType: "blob" }
       );
       return URL.createObjectURL(response.data);
