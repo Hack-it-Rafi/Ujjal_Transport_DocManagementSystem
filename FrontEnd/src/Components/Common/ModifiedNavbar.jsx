@@ -64,7 +64,7 @@ const ModifiedNavbar = () => {
 
           <img
             onClick={handleRedirect}
-            className="w-44"
+            className="w-32 md:w-44"
             src="/ujjal-flour-high-resolution-logo-transparent.png"
             alt="logo"
           />
@@ -76,20 +76,20 @@ const ModifiedNavbar = () => {
         )}
         <div className="navbar-end">
           {user ? (
-            <div className="">
+            <div className="flex flex-col items-end">
               {/* <div className="text-white">{user.email}</div> */}
               <button
                 onClick={handleLogOut}
-                className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white"
+                className="w-20 h-8 md:w-28 md:h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-sm md:text-xl text-center hover:bg-white"
               >
                 Sign Out
               </button>
-              <p className="text-white">{user.email}</p>
+              <p className="text-white text-xs md:text-sm">{user.email}</p>
             </div>
           ) : (
             <div>
               <Link to="/login">
-                <button className="w-28 h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-xl text-center hover:bg-white">
+                <button className="w-20 h-8 md:w-28 md:h-10 bg-[#F3F3E6] text-black font-bold rounded-lg text-sm md:text-xl text-center hover:bg-white">
                   Log In
                 </button>
               </Link>
