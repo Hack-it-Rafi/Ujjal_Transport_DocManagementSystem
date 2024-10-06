@@ -14,6 +14,7 @@ const TransportCard = ({ vehicle }) => {
   } = vehicle;
 
   const calculateRemainingDays = (expiryDate) => {
+    if (!expiryDate) return 0; 
     const differenceInTime = new Date(expiryDate) - new Date();
     return Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
   };

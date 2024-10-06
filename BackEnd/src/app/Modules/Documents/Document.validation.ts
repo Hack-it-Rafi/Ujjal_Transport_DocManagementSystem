@@ -6,7 +6,7 @@ const addDocumentSchema = z.object({
         // imageUrl: z.string(),
         // imageUrl: z.instanceof(File),
         type: z.enum([...Types] as [string, ...string[]]),
-        dateOfExpiry: z.string()
+        dateOfExpiry: z.string().nullable().optional(), 
     })
 })
 

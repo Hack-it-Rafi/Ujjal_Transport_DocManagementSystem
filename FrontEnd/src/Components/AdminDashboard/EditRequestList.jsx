@@ -19,7 +19,7 @@ const EditRequestList = () => {
   return (
     <div className="w-full flex justify-center">
       <div className="overflow-x-auto bg-gray-50 rounded-lg">
-        <table className="table table-zebra">
+        <table className="table">
           {/* head */}
           <thead className="bg-[#eceaea]">
             <tr className="text-2xl font-serif font-bold">

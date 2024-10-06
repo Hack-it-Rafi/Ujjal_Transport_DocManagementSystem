@@ -17,10 +17,8 @@ const Login = () => {
     const password = event.target.password.value;
 
     signIn(email, password)
-      .then((result) => {
-        console.log(result.user.email);
+      .then(() => {
         const myUser = { email };
-        console.log(myUser);
         setSuccess("Login success");
         Swal.fire({
           title: "Login Successful!",

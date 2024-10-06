@@ -21,7 +21,6 @@ const documentSchema = new Schema<TDocument>(
     },
     dateOfExpiry: {
       type: Date,
-      required: true,
     },
   },
   {

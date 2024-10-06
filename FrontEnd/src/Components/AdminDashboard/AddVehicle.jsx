@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { useState } from "react";
 
 const AddVehicle = () => {
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
 
   const handleAddVehicle = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const form = e.target;
 
@@ -56,7 +59,7 @@ const AddVehicle = () => {
         );
       }
 
-      if (registrationDocImageUrl && registrationDocExpiry) {
+      if (registrationDocImageUrl) {
         promises.push(
           axiosSecure.post(
             "https://api.ujjalflourmills.com/api/v1/document/add-document",
@@ -135,6 +138,14 @@ const AddVehicle = () => {
       navigate("/home/transportList");
     } catch (error) {
       console.error("Error adding documents or vehicle:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "There was an issue adding the vehicle.",
+        icon: "error",
+        confirmButtonText: "Try Again",
+      });
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -233,7 +244,7 @@ const AddVehicle = () => {
                 <input
                   type="file"
                   name="taxImage"
-                  className="input input-bordered w-full"
+                  className="file-input file-input-bordered file-input-accent max-w-xs input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
@@ -260,7 +271,7 @@ const AddVehicle = () => {
                 <input
                   type="file"
                   name="registrationImage"
-                  className="input input-bordered w-full"
+                  className="file-input file-input-bordered file-input-accent max-w-xs input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
@@ -287,7 +298,7 @@ const AddVehicle = () => {
                 <input
                   type="file"
                   name="fitnessImage"
-                  className="input input-bordered w-full"
+                  className="file-input file-input-bordered file-input-accent max-w-xs input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
@@ -314,7 +325,7 @@ const AddVehicle = () => {
                 <input
                   type="file"
                   name="routePermitImage"
-                  className="input input-bordered w-full"
+                  className="file-input file-input-bordered file-input-accent max-w-xs input input-bordered w-full"
                 />
               </div>
               <div className="form-control w-full">
@@ -331,8 +342,13 @@ const AddVehicle = () => {
           </div>
 
           <div className="form-control mt-6 pb-10">
-            <button className="btn btn-primary bg-amber-400 border-0 text-white text-xl">
-              Add Vehicle
+            <button
+              className={`btn btn-primary bg-amber-400 border-0 text-white text-xl ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
+            >
+              {loading ? "Adding Vehicle..." : "Add Vehicle"}
             </button>
           </div>
         </form>
